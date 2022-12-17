@@ -1,0 +1,45 @@
+{
+  "projectName": "mapps-screen",
+  "styleFile": "/css/style.css",
+  "assetsFolder": "/assets",
+  "designFramework": "bootstrap5",
+  "frameworks": [
+    {
+      "name": "fontawesome_5",
+      "type": "cdn"
+    },
+    {
+      "name": "appConnect",
+      "type": "local"
+    },
+    {
+      "name": "bootstrap5",
+      "type": "custom"
+    }
+  ],
+  "projectServerModel": "PHP",
+  "runtime": "capacitor",
+  "targets": [
+    {
+      "name": "Production",
+      "remoteURL": "https://mapps-screen.turkmobil.com.tr",
+      "access": "ftp",
+      "usage": "production",
+      "databaseConnectionType": "custom",
+      "db_host": "mapps-screen.turkmobil.com.tr",
+      "db_port": "3306",
+      "db_user": "mappstv",
+      "db_password": "use147!!",
+      "db_database": "mapps-screen",
+      "ftpServer": "mapps-screen.turkmobil.com.tr",
+      "ftpUser": "mapps-screen",
+      "ftpPassword": "17deb9b6a4c898b3"
+    }
+  ],
+  "activeTarget": "Production",
+  "useRouting": true,
+  "addBase": true,
+  "routingHandler": "apache",
+  "projectType": "web",
+  "userUploadsFolder": "/uploads"
+}
