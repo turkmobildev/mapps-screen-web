@@ -1,0 +1,46 @@
+{
+  "routes": [
+    {
+      "path": "/monitor",
+      "url": "/ekran.html"
+    },
+    {
+      "path": "/ekran",
+      "url": "/dmxConnect/api/ekranlar/ekran_liste.php",
+      "name": "ekran",
+      "method": "get"
+    },
+    {
+      "path": "/",
+      "url": "/index.html",
+      "name": "index",
+      "routes": [
+        {
+          "type": "page",
+          "path": "/ekranlar",
+          "id": "ekranlar",
+          "url": "spa/ekranlar.html"
+        },
+        {
+          "type": "page",
+          "path": "/",
+          "id": "main",
+          "url": "spa/main.html",
+          "exact": "true"
+        },
+        {
+          "type": "page",
+          "path": "/yerleskeler",
+          "id": "yerleskeler",
+          "url": "spa/yerleskeler.html"
+        },
+        {
+          "type": "page",
+          "path": "/odalar",
+          "id": "odalar",
+          "url": "spa/odalar.html"
+        }
+      ]
+    }
+  ]
+}

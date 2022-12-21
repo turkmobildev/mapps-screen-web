@@ -1,0 +1,228 @@
+<!-- Wappler include head-page="../index.html" bootstrap5="local" id="yerleskeler" is="dmx-app" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxBootstrap5Alert:{},dmxBootstrap5Modal:{},dmxFormatter:{},dmxValidator:{},dmxNotifications:{}}" -->
+<dmx-notifications id="notifies1"></dmx-notifications>
+<dmx-serverconnect id="scOdaTipleri" url="../dmxConnect/api/Yerleskeler_Oda_Tipleri/yerleskeler_Oda_Tipleri_liste.php" noload></dmx-serverconnect>
+<dmx-serverconnect id="scOdaEkranTipleri" url="../dmxConnect/api/Ekran_Tipleri/ekran_tipleri_liste.php" noload></dmx-serverconnect>
+<dmx-serverconnect id="scYerleskelerListe" url="../dmxConnect/api/Yerleskeler/yerleske_liste.php"></dmx-serverconnect>
+<div class="modal" id="modalOdaEkle" is="dmx-bs5-modal" tabindex="-1" dmx-on:shown-bs-modal="scOdaEkranTipleri.load({},true);scOdaTipleri.load({})">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center mb-4">
+                    <h3 class="mb-2">Tanımlanan Yerleşke İçin Oda Bilgileri Ekleyin</h3>
+                    <p class="text-muted">Herbir yerleşke için en az 1 oda bilgisi tanımlanmalıdır. </p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <form is="dmx-serverconnect-form" id="formOdaEkle" method="post" action="../dmxConnect/api/Yerleskeler_oda/yerleskeler_oda_ekle.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-on:success="modalOdaEkle.hide();scYerleskelerListe.load({},true)">
+                            <input type="hidden" name="kyo_yerleske_id" id="inp_kyo_yerleske_id">
+                            <div class="row gx-3">
+                                <div class="col">
+                                    <div class="form-group mb-3">
+                                        <label for="inp_kyo_kat_bilgisi">Odanın Bulunduğu Kat</label>
+                                        <input type="text" class="form-control" id="inp_kyo_kat_bilgisi" name="kyo_kat_bilgisi" aria-describedby="inp_kyo_kat_bilgisi_help" placeholder="Kat Bilgisi">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group mb-3">
+                                        <label for="inp_kyo_oda_adi">Oda Adı</label>
+                                        <input type="text" class="form-control" id="inp_kyo_oda_adi" name="kyo_oda_adi" aria-describedby="inp_kyo_oda_adi_help" placeholder=" Oda Adı">
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="my-3">Oda Tipini Seçiniz </h5>
+                            <div class="row gy-3">
+                                <div class="col-md" dmx-repeat:repeat1="scOdaTipleri.data.query">
+                                    <div class="form-check custom-option custom-option-icon checked">
+                                        <label class="form-check-label custom-option-content" dmx-bind:for="'odaTipiRaido_'+$index">
+                                            <span class="custom-option-body">
+                                                <i class="ti ti-door"></i>
+                                                <span class="custom-option-title"> {{ot_oda_tip_adi}} </span>
+                                                <small>Yerleşke Oda Tipi. </small>
+                                            </span>
+                                            <input name="kyo_oda_tip" class="form-check-input" type="radio" value="" dmx-bind:id="'odaTipiRaido_'+$index" checked="" dmx-bind:value="ot_oda_id">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="my-3">Ekran Tipini Seçiniz </h5>
+                            <div class="row gy-3">
+                                <div class="col-md" dmx-repeat:repeat2="scOdaEkranTipleri.data.queryEkranTipleri">
+                                    <div class="form-check custom-option custom-option-icon checked">
+                                        <label class="form-check-label custom-option-content" dmx-bind:for="'odaEkranTipiRaido_'+$index">
+                                            <span class="custom-option-body">
+                                                <i class="ti ti-device-tv"></i>
+                                                <span class="custom-option-title"> {{et_adi}} </span>
+                                                <small>Ekran Tercihi </small>
+                                            </span>
+                                            <input name="kyo_ekran_tipi" class="form-check-input" type="radio" value="" dmx-bind:id="'odaEkranTipiRaido_'+$index" checked="" dmx-bind:value="et_id">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center my-4">
+                                <button type="submit" class="btn btn-primary me-sm-3 me-1">Ekle</button>
+                                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">İptal</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalYerleskeEkle" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-simple modal-edit-user" role="document">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="container-xxl">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center mb-4">
+                                <h3 class="mb-2">Yeni Yerleşke Ekleyin</h3>
+                                <p class="text-muted">Ekranlarınızı tanımlayabilmek için en az 1 yerleşke ekleyin.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <form is="dmx-serverconnect-form" id="formYerleskeEkle" method="post" action="../dmxConnect/api/Yerleskeler/yerleske_ekle.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-on:success="scYerleskelerListe.load({});formYerleskeEkle.reset(true);modalYerleskeEkle.hide()">
+                                <div class="row gx-3">
+                                    <div class="col">
+                                        <div class="form-group mb-3">
+                                            <label for="inp_yerleske_adi">Yerleske Adı</label>
+                                            <input type="text" class="form-control" id="inp_yerleske_adi" name="yerleske_adi" aria-describedby="inp_yerleske_adi_help" placeholder="Yerleşke adı giriniz...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary me-sm-3 me-1" form="formYerleskeEkle">Ekle</button>
+                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalYerleskeGuncelle" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-simple modal-edit-user" role="document">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="container-xxl">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center mb-4">
+                                <h3 class="mb-2">Mevcut Yerleşkeyi Güncelle</h3>
+                                <p class="text-muted">Ekranlarınızı tanımlayabilmek için en az 1 yerleşke gerekmektedir.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <form is="dmx-serverconnect-form" id="formYerleskeGuncelle" method="post" action="../dmxConnect/api/Yerleskeler/yerleske_guncelle.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-on:success="scYerleskelerListe.load({});formYerleskeGuncelle.reset(true);modalYerleskeGuncelle.hide()">
+                                <div class="row gx-3">
+                                    <div class="col">
+                                        <input id="inp_yerleske_id" name="yerleske_id" type="hidden" class="form-control">
+                                        <div class="form-group mb-3">
+                                            <label for="inp_yerleske_adi_guncelle">Yerleske Adı</label>
+                                            <input type="text" class="form-control" id="inp_yerleske_adi_guncelle" name="yerleske_adi" aria-describedby="inp_yerleske_adi_help" placeholder="Yerleşke adı giriniz...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary me-sm-3 me-1" form="formYerleskeGuncelle">Güncelle</button>
+                <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form is="dmx-serverconnect-form" id="formYerleskeSil" method="post" action="../dmxConnect/api/Yerleskeler/yerleske_sil.php" dmx-generator="bootstrap5" dmx-form-type="horizontal" dmx-on:success="scYerleskelerListe.load({});notifies1.success('Yerleşke başarılı olarak silinmiştir...')">
+    <input type="hidden" name="yerleske_id" id="inp_yerleske_id_YerleskeSilFrom">
+</form>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row mb-2">
+        <div class="col">
+            <h4>
+                Yerleşkeler
+            </h4>
+        </div>
+        <div class="col-6 align-self-end">
+            <div class="d-flex flex-row align-items-end justify-content-end">
+                <div class="d-block">
+                </div>
+                <div class="d-block">
+                    <button id="btn1" class="btn btn-primary me-1" dmx-on:click="modalYerleskeEkle.show()">
+                        <i class="ti ti-building ti-sm"></i>
+                        Yerleşke Ekle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body py-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Yerleske Adı</th>
+                                <th>Tanımlı Odalar</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scYerleskelerListe.data.repeat" id="tableRepeat1">
+                            <tr>
+                                <td dmx-text="yerleske_id" class="col-1"></td>
+                                <td class="col-3">
+                                    <span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2">
+                                        <i class="ti ti-home-dot ti-sm"></i>
+                                    </span>
+                                    {{yerleske_adi.uppercase()}}
+                                </td>
+                                <td>
+                                    <span class="badge badge-center rounded-pill  w-px-30 h-px-30 me-2" dmx-class:bg-label-warning="queryOdalar.count() == 0" dmx-class:bg-label-success="queryOdalar.count() > 0">
+                                        <i class="ti ti-door ti-sm"></i>
+                                    </span>
+                                    <span class="badge bg-label-danger" dmx-show="queryOdalar.count() == 0">Henüz Oda Tanımlanmamış!</span>
+                                    <span class="badge bg-label-success" dmx-show="queryOdalar.count() > 0">{{queryOdalar.count()+' Adet oda bulundu'}} </span>
+                                </td>
+                                <td class="text-end col-2">
+                                    <a href="javascript:void(0);" class="text-body" data-bs-toggle="modal" data-bs-target="#modalOdaEkle" dmx-on:click="modalOdaEkle.formOdaEkle.inp_kyo_yerleske_id.setValue(yerleske_id)">
+                                        <i class="ti ti-home-plus ti-sm me-2"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" class="text-body" dmx-on:click="modalYerleskeGuncelle.formYerleskeGuncelle.inp_yerleske_id.setValue(yerleske_id);modalYerleskeGuncelle.show();modalYerleskeGuncelle.formYerleskeGuncelle.inp_yerleske_adi_guncelle.setValue(yerleske_adi)">
+                                        <i class="ti ti-edit ti-sm me-2"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" class="text-danger" dmx-on:click="formYerleskeSil.inp_yerleske_id_YerleskeSilFrom.setValue(yerleske_id);formYerleskeSil.submit()" dmx-show="!queryOdalar.hasItems()">
+                                        <i class="ti ti-trash ti-sm"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" class="text-body" dmx-show="queryOdalar.hasItems()">
+                                        <i class="ti ti-trash-off ti-sm"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="alert" id="alertYerleskelerBos" is="dmx-bs5-alert" role="alert">
+                <h6 class="mb-0"><b>Yerleşke tanımı bulunmamaktadır.&nbsp;<br></b>Kurum ve ya şirketinize ait olan şubelerinizi buradan tanımlayabilirsiniz. Bu tanımlamalar daha sonra ekranlarınızın konumlarını rahatlıkla belirleyebilmeniz için kullanılacaktır.</h6>
+            </div>
+        </div>
+    </div>
+</div>

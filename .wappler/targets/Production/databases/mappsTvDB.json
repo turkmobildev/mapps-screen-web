@@ -1,6 +1,101 @@
 {
   "schema": {
     "tables": {
+      "oda_kullanicilar": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "ok_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "ok_ad_soyad": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 55,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_unvan": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 100,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_telefon": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 12,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_eposta": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_sifre": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ko_foto_url": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_tip": {
+            "db": {
+              "type": "integer",
+              "default": "0",
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "ok_olusturulma": {
+            "db": {
+              "type": "datetime",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_durum": {
+            "db": {
+              "type": "integer",
+              "default": "1",
+              "primary": false,
+              "nullable": false
+            }
+          }
+        }
+      },
       "oda_tipleri": {
         "db": {
           "engine": "InnoDB",
@@ -27,7 +122,7 @@
           }
         }
       },
-      "yerleskeler": {
+      "kurum_yerleskeler": {
         "db": {
           "engine": "InnoDB",
           "schema": "mappstv",
@@ -54,7 +149,164 @@
           }
         }
       },
-      "ekranlar": {
+      "oda_ekran_ozellikleri": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "eo_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "eo_k_oda_id": {
+            "db": {
+              "type": "integer",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "eo_oda_tipi_id": {
+            "db": {
+              "type": "integer",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "eo_ip": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 15,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "eo_yerleske": {
+            "db": {
+              "type": "boolean",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "eo_tarih_saat": {
+            "db": {
+              "type": "boolean",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "eo_durum": {
+            "db": {
+              "type": "boolean",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "eo_hava_durumu": {
+            "db": {
+              "type": "boolean",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "eo_toplanti_konu": {
+            "db": {
+              "type": "boolean",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "eo_toplanti_baslangic": {
+            "db": {
+              "type": "datetime",
+              "default": "'0000-00-00 00:00:00'",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "eo_toplanti_bitis": {
+            "db": {
+              "type": "datetime",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "eo_toplanti_katilimci_listesi": {
+            "db": {
+              "type": "boolean",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "kurum_yerleskeler_oda": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "kyo_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "kyo_kat_bilgisi": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "kyo_oda_adi": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "kyo_oda_tip": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "kyo_ekran_tipi": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "oda_ekran": {
         "db": {
           "engine": "InnoDB",
           "schema": "mappstv",
@@ -62,32 +314,23 @@
           "system_versioned": false
         },
         "columns": {
-          "ekran_id": {
+          "e_id": {
             "db": {
               "type": "increments",
               "primary": true,
               "nullable": false
             }
           },
-          "ekran_tag": {
+          "e_device_id": {
             "db": {
               "type": "string",
               "default": "",
-              "maxLength": 255,
+              "maxLength": 100,
               "primary": false,
               "nullable": true
             }
           },
-          "ekran_device_id": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 255,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "ekran_yerleske_id": {
+          "e_ko_oda_id": {
             "db": {
               "type": "integer",
               "default": "",
@@ -95,7 +338,7 @@
               "nullable": true
             }
           },
-          "ekran_oda_id": {
+          "e_ky_id": {
             "db": {
               "type": "integer",
               "default": "",
@@ -103,7 +346,42 @@
               "nullable": true
             }
           },
-          "ekran_ip": {
+          "e_ip": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 15,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "e_ot_oda_tip": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "oda_ekran_tipleri": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "et_id": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "et_adi": {
             "db": {
               "type": "string",
               "default": "",
@@ -114,90 +392,44 @@
           }
         }
       },
-      "kullanicilar": {
+      "toplanti": {
         "db": {
           "engine": "InnoDB",
           "schema": "mappstv",
-          "collation": "utf8mb4_general_ci",
+          "collation": "utf8_general_ci",
           "system_versioned": false
-        },
-        "columns": {
-          "kullanici_id": {
-            "db": {
-              "type": "increments",
-              "primary": true,
-              "nullable": false
-            }
-          },
-          "kullanici_adi_soyadi": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 55,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "kullanici_unvan": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 100,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "kullanici_telefon": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 12,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "kullanici_eposta": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 255,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "kullanici_sifre": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 255,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "kullanici_olusturulma_tarihi": {
-            "db": {
-              "type": "datetime",
-              "default": "",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "kullanici_durum": {
-            "db": {
-              "type": "integer",
-              "default": "",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "kullanici_tipi": {
-            "db": {
-              "type": "integer",
-              "default": "0",
-              "primary": false,
-              "nullable": false
-            }
-          }
+        }
+      },
+      "oda_ekran_renk": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        }
+      },
+      "oda_ekran_durumlar": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        }
+      },
+      "toplanti_katilimcilar": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        }
+      },
+      "oda_ekran_kullanicilar": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
         }
       }
     },

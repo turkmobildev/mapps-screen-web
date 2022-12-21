@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+    <meta name="ac:route" content="/monitor">
+    <base href="/">
+    <script src="dmxAppConnect/dmxAppConnect.js"></script>
+    <meta charset="UTF-8">
+    <title>1</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="bootstrap/5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="dmxAppConnect/dmxScheduler/dmxScheduler.js" defer></script>
+    <script src="dmxAppConnect/dmxBrowser/dmxBrowser.js" defer></script>
+    <script src="js/getLocalIP.js" defer></script>
+    <script src="js/getDeviceId.js" defer></script>
+</head>
+
+<body is="dmx-app" id="ekran" onload="toggle_full_screen();" class="bg10">
+    <div is="dmx-browser" id="browserEkran"></div>
+    <button id="btn1" class="btn" onclick="toggle_full_screen();">Tam Ekran</button>
+    <dmx-scheduler id="scheduler1" dmx-on:tick="scEkranDetay.load({});scHavaDurumu.load({})" delay="3"></dmx-scheduler>
+    <dmx-serverconnect id="scEkranDetay" url="dmxConnect/api/ekranlar/ekran_liste.php"></dmx-serverconnect>
+    <dmx-serverconnect id="scHavaDurumu" url="dmxConnect/api/hava_durumu/hava_durumu_al.php"></dmx-serverconnect>
+    <div class="container-xxl mt-0 mb-0 ms-0 me-0">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <h1 class="fw-bolder display-4" style="font-size: 100px;">{{scEkranDetay.data.queryEkranListesi[0].ekranlar_ozellik_oda_adi}}</h1>
+            </div>
+            <div class="col-4"></div>
+        </div>
+        <div class="row mt-1">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-2 mb-auto">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+
+    <div class="row fixed-bottom w-100 h-10 align-items-end justify-content-around bg-dark bg-opacity-50 h-auto">
+        <div class="col align-self-end">{{scHavaDurumu.data.apiGetWeather.data.current.temp_c}}
+            {{browserEkran.location.hash}} -
+            {{browserEkran.location.host}} -
+            {{browserEkran.location.origin}}---
+        </div>
+        <div class="col align-self-end"></div>
+        <div class="col align-self-end"></div>
+        ççç<div class="col align-self-end" id="deviceid"></div>iii
+        <div id="list">---</div>
+    </div>
+
+
+
+
+
+
+
+    <script src="bootstrap/5/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function reload(){
+        window.localtion.reload();
+    }
+    </script>
+    <script type="text/javascript">
+        function toggle_full_screen()
+        {
+        if ((document.fullScreenElement && document.fullScreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen))
+        {
+        if (document.documentElement.requestFullScreen){
+        document.documentElement.requestFullScreen();
+        }
+        else if (document.documentElement.mozRequestFullScreen){ /* Firefox */
+        document.documentElement.mozRequestFullScreen();
+        }
+        else if (document.documentElement.webkitRequestFullScreen){ /* Chrome, Safari & Opera */
+        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+        else if (document.msRequestFullscreen){ /* IE/Edge */
+        document.documentElement.msRequestFullscreen();
+        }
+        }
+        else
+        {
+        if (document.cancelFullScreen){
+        document.cancelFullScreen();
+        }
+        else if (document.mozCancelFullScreen){ /* Firefox */
+        document.mozCancelFullScreen();
+        }
+        else if (document.webkitCancelFullScreen){ /* Chrome, Safari and Opera */
+        document.webkitCancelFullScreen();
+        }
+        else if (document.msExitFullscreen){ /* IE/Edge */
+        document.msExitFullscreen();
+        }
+        }
+        }
+       
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+<!-- Wappler include head-page="../index.html" appconnect="local" is="dmx-app" bootstrap5="custom" components="{dmxBootstrap5Navigation:{},dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxBootstrap5Alert:{},dmxDataTraversal:{},dmxStateManagement:{},dmxBootstrap5PagingGenerator:{},dmxValidator:{},dmxBootstrap5Modal:{}}" id="mainpages" -->
+<dmx-session-manager id="sessionmainpage"></dmx-session-manager>
+<dmx-query-manager id="queryMainPage"></dmx-query-manager>
+<dmx-serverconnect id="scKullanicilar" url="../dmxConnect/api/kullanicilar/kullanici_listesi.php" dmx-param:offset="sessionmainpage.data.offset"></dmx-serverconnect>
+<dmx-serverconnect id="scKullaniciDetay" url="../dmxConnect/api/kullanicilar/kullanici_detay.php" noload></dmx-serverconnect>
+
+<!-- Edit User Modal -->
+<div class="modal fade" id="editUser" tabindex="-1" is="dmx-bs5-modal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+    <div class="modal-content p-3 p-md-5">
+      <div class="modal-body">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="text-center mb-4">
+          <h3 class="mb-2">Yeni Ekran Kullanıcısı Ekleyin</h3>
+          <p class="text-muted">Ekranların kullanımına yetki vermek için bir kullanıcı ekleyin.</p>
+        </div>
+        <div class="alert fade" id="alertTekilKullanici" is="dmx-bs5-alert" role="alert" type="warning" dmx-bind:show="modalKullaniciEkleForm.status==600">
+          <p>Daha önce bu telefon numarasına ait bir kullanıcı kaydedilmiştir. </p>
+        </div>
+        <div class="alert alert-warning" role="alert">
+
+          <h5 class="alert-heading mb-2">Şifrenizin başkaları tarafından tahmin edilemez olduğundan emin olun .</h5>
+          <span>Lütfen en az 8 karakterlik bir şifre belirleyin</span>
+        </div>
+        <form id="modalKullaniciEkleForm" class="row g-3" is="dmx-serverconnect-form" method="post" action="../dmxConnect/api/kullanicilar/kullanici_ekle.php" dmx-on:success="modalKullaniciEkleForm.reset();editUser.hide();scKullanicilar.load({})">
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="modalKullaniciUnvan">Ünvan</label>
+            <input type="text" id="modalKullaniciUnvan" name="modalKullaniciUnvan" class="form-control" placeholder="Ünvan" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="modalEditUserFirstName">Ad Soyad (*)</label>
+            <input type="text" id="modalEditUserFirstName" name="modalEditUserFirstName" class="form-control" placeholder="Ad Soyad" required="" data-msg-required="Bu alan zorunludur ." />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="modalEditUserPassword">Şifre (*)</label>
+            <input type="password" id="modalEditUserPassword" name="modalEditUserPassword" class="form-control" placeholder="şifre" required="" data-msg-required="Bu alan zorunludur ." minlength="8" data-msg-minlength="Lütfen en az  {0} karakter uzunluğunda bir şifre belirleyin." />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="modalEditUserEmail">E-Posta</label>
+            <input type="text" id="modalEditUserEmail" name="modalEditUserEmail" class="form-control" placeholder="example@domain.com" required="" data-msg-required="Bu alan zorunludur." data-rule-email="" data-msg-email="Lütfen geçerli bir e-posta adresi giriniz." />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="modalEditUserStatus">Durum (*)</label>
+            <select id="modalEditUserStatus" name="modalEditUserStatus" class="form-select" aria-label="Kullanici durumu" required="" data-msg-required="Bu alan zorunludur .">
+              <option selected="" value="null">Durum</option>
+              <option value="1">Aktif</option>
+              <option value="0">Pasif</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="modalEditUserPhone">Telefon Numarası (*)</label>
+            <div class="input-group">
+              <span class="input-group-text">TR (+90)</span>
+              <input type="text" id="modalEditUserPhone" name="modalEditUserPhone" class="form-control phone-number-mask" placeholder="532 555 0111" required="" data-msg-required="Bu alan zorunludur ." />
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="switch">
+              <input type="checkbox" class="switch-input" name="kullanici_tipi" id="id_kullanici_tipi" dmx-bind:value="checked ? 1 : 0">
+              <span class="switch-toggle-slider">
+                <span class="switch-on"></span>
+                <span class="switch-off"></span>
+              </span>
+              <span class="switch-label">Kullanıcı admin yetkilerine sahip olsun mu ?</span></label>
+          </div>
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary me-sm-3 me-1">Ekle</button>
+            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
+              İptal
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="KullaniciGuncelle" is="dmx-bs5-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+    <div class="modal-content p-3 p-md-5">
+      <div class="modal-body">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="text-center mb-4">
+          <h3 class="mb-2">Ekran Kullanıcısını Güncelleyin</h3>
+        </div>
+        <div class="alert alert-warning" role="alert">
+          <h5 class="alert-heading mb-2">Şifrenizin başkaları tarafından tahmin edilemez olduğundan emin olun .</h5>
+          <span>Lütfen en az 8 karakterlik bir şifre belirleyin</span>
+        </div>
+        <form id="modalKullaniciGuncelleForm" class="row g-3" is="dmx-serverconnect-form" method="post" action="../dmxConnect/api/kullanicilar/kullanici_guncelle.php" dmx-on:success="modalKullaniciEkleForm.reset();scKullanicilar.load({});KullaniciGuncelle.hide()">
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="id_kullanici_unvan">Ünvan</label>
+            <input type="text" id="id_kullanici_unvan" name="kullanici_unvan" class="form-control" placeholder="Ünvan" dmx-bind:value="scKullaniciDetay.data.queryKullaniciDetay.ok_unvan" dmx-bind:disabled="scKullaniciDetay.state.executing">
+            <input id="id_kullanici_id" name="kullanici_id" type="hidden" class="form-control" dmx-bind:value="scKullaniciDetay.data.queryKullaniciDetay.ok_id">
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="id_kullanici_adi_soyadi">Ad Soyad (*)</label>
+            <input type="text" id="id_kullanici_adi_soyadi" name="kullanici_adi_soyadi" class="form-control" placeholder="Ad Soyad" required="" data-msg-required="Bu alan zorunludur ." dmx-bind:value="scKullaniciDetay.data.queryKullaniciDetay.ok_ad_soyad" dmx-bind:disabled="scKullaniciDetay.state.executing">
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="id_kullanici_eposta">E-Posta</label>
+            <input type="text" id="id_kullanici_eposta" name="kullanici_eposta" class="form-control" placeholder="example@domain.com" required="" data-msg-required="Bu alan zorunludur." data-rule-email="" data-msg-email="Lütfen geçerli bir e-posta adresi giriniz." dmx-bind:value="scKullaniciDetay.data.queryKullaniciDetay.ok_eposta" dmx-bind:disabled="scKullaniciDetay.state.executing">
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="id_kullanici_durum">Durum (*)</label>
+            <select id="id_kullanici_durum" name="kullanici_durum" class="form-select" aria-label="Kullanici durumu" required="" data-msg-required="Bu alan zorunludur ." dmx-bind:disabled="scKullaniciDetay.state.executing" dmx-bind:value="scKullaniciDetay.data.queryKullaniciDetay.ok_durum">
+              <option selected="" value="null">Durum</option>
+              <option value="1">Aktif</option>
+              <option value="0">Pasif</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="id_kullanici_telefon">Telefon Numarası (*)</label>
+            <div class="input-group">
+              <span class="input-group-text">TR (+90)</span>
+              <input type="text" id="id_kullanici_telefon" name="kullanici_telefon" class="form-control phone-number-mask" placeholder="532 555 0111" required="" data-msg-required="Bu alan zorunludur ." dmx-bind:value="scKullaniciDetay.data.queryKullaniciDetay.ok_telefon" dmx-bind:disabled="scKullaniciDetay.state.executing">
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="switch">
+              <input type="checkbox" class="switch-input" name="kullanici_tipi" id="id_kullanici_tipi_guncelle" dmx-bind:value="checked ? 1 : 0" dmx-bind:disabled="scKullaniciDetay.state.executing" dmx-bind:checked="scKullaniciDetay.data.queryKullaniciDetay.ok_tip == 1 ?true : false">
+              <span class="switch-toggle-slider">
+                <span class="switch-on"></span>
+                <span class="switch-off"></span>
+              </span>
+              <span class="switch-label">Kullanıcı admin yetkilerine sahip olsun mu ?</span></label>
+          </div>
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary me-sm-3 me-1">Ekle</button>
+            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
+              İptal
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/ Edit User Modal -->
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="row mb-2">
+    <div class="col">
+      <h4>
+        Kullanıcılar
+      </h4>
+    </div>
+    <div class="col text-end">
+      <button class="dt-button add-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="modal" data-bs-target="#editUser">
+        <span>
+          <i class="ti ti-plus me-0 me-sm-1 ti-xs"></i>
+          Yeni Kullanıcı Ekle
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mb-lg-0">
+      <div class="card h-100">
+        <div class="card-body">
+
+
+          <div class="alert mt-2 mb-2 ms-2 me-2" id="alertKullaniciYok" is="dmx-bs5-alert" role="alert" type="danger" dmx-bind:show="!scKullanicilar.data.queryKullanicilar.data.hasItems()">
+            <p>Henüz kayıtlı bir kullanıcı bulunmamaktadır. !</p>
+          </div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Ad Soyad</th>
+                <th>Ünvan</th>
+                <th>Telefon</th>
+                <th>E-Posta</th>
+                <th>Rol</th>
+                <th>Tarih</th>
+                <th>Durum</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scKullanicilar.data.queryKullanicilar.data" id="tableRepeat1">
+              <tr>
+                <td>
+                  <div class="avatar-wrapper">
+                    <div class="avatar avatar-sm me-3">
+                      <img dmx-bind:src="ko_foto_url ? ko_foto_url :'../../assets/img/avatars/0.png'" dmx-bind:alt="ok_ad_soyad" class="rounded-circle">
+                    </div>
+                  </div>
+                </td>
+                <td dmx-text="ok_ad_soyad"></td>
+                <td dmx-text="ok_unvan"></td>
+                <td dmx-text="ok_telefon"></td>
+                <td dmx-text="ok_eposta"></td>
+
+                <td dmx-text="ok_tip == 1 ? 'Admin' : 'Kullanici'"></td>
+                <td dmx-text="ok_olusturulma.formatDate('dd-MM-yyyy HH:mm')"></td>
+                <td>
+                  <span class="badge" text-capitalized="" dmx-class:bg-label-success="ok_durum == 1" dmx-class:bg-label-secondary="ok_durum == 0">{{ok_durum == 1 ? 'Aktif':'Pasif'}}</span>
+                </td>
+                <td class="text-lg-end">
+
+                  <a href="javascript:void(0)" id="btnDuzenle" class="text-body me-2" dmx-on:click="KullaniciGuncelle.show();scKullaniciDetay.load({kid: ok_id})">
+                    <i class="ti ti-edit ti-sm"></i>
+                  </a>
+                  <a href="javascript:void(0)" id="btnSil" class="text-body" dmx-on:click="kullanici_sil.id_kullanici_id_sil_form.setValue(ok_id);kullanici_sil.submit();scKullanicilar.load({offset: sessionmainpage.data.offset, limit: 10},true)">
+                    <i class="ti ti-trash ti-sm"></i>
+                  </a>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <form action="../dmxConnect/api/kullanicilar/kullanici_sil.php" id="kullanici_sil" method="post" is="dmx-serverconnect-form" dmx-on:success="scKullanicilar.load({offset: sessionmainpage.data.offset},true);kullanici_sil.reset(true)">
+            <input id="id_kullanici_id_sil_form" name="kullanici_id" type="hidden" class="form-control">
+          </form>
+          <div class="row mt-2 ms-2 me-2">
+            <ul class="pagination" dmx-populate="scKullanicilar.data.queryKullanicilar" dmx-state="sessionmainpage" dmx-offset="offset" dmx-generator="bs5paging">
+              <li class="page-item" dmx-class:disabled="scKullanicilar.data.queryKullanicilar.page.current == 1" aria-label="First">
+                <a href="javascript:void(0)" class="page-link" dmx-on:click="sessionmainpage.set('offset',scKullanicilar.data.queryKullanicilar.page.offset.first)"><span aria-hidden="true">&lsaquo;&lsaquo;</span></a>
+              </li>
+              <li class="page-item" dmx-class:disabled="scKullanicilar.data.queryKullanicilar.page.current == 1" aria-label="Previous">
+                <a href="javascript:void(0)" class="page-link" dmx-on:click="sessionmainpage.set('offset',scKullanicilar.data.queryKullanicilar.page.offset.prev)"><span aria-hidden="true">&lsaquo;</span></a>
+              </li>
+              <li class="page-item" dmx-class:active="title == scKullanicilar.data.queryKullanicilar.page.current" dmx-class:disabled="!active" dmx-repeat="scKullanicilar.data.queryKullanicilar.getServerConnectPagination(2,1,'...')">
+                <a href="javascript:void(0)" class="page-link" dmx-on:click="sessionmainpage.set('offset',(page-1)*scKullanicilar.data.queryKullanicilar.limit)">{{title}}</a>
+              </li>
+              <li class="page-item" dmx-class:disabled="scKullanicilar.data.queryKullanicilar.page.current ==  scKullanicilar.data.queryKullanicilar.page.total" aria-label="Next">
+                <a href="javascript:void(0)" class="page-link" dmx-on:click="sessionmainpage.set('offset',scKullanicilar.data.queryKullanicilar.page.offset.next)"><span aria-hidden="true">&rsaquo;</span></a>
+              </li>
+              <li class="page-item" dmx-class:disabled="scKullanicilar.data.queryKullanicilar.page.current ==  scKullanicilar.data.queryKullanicilar.page.total" aria-label="Last">
+                <a href="javascript:void(0)" class="page-link" dmx-on:click="sessionmainpage.set('offset',scKullanicilar.data.queryKullanicilar.page.offset.last)"><span aria-hidden="true">&rsaquo;&rsaquo;</span></a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- Activity Timeline -->
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <base href="/">
+    <script src="dmxAppConnect/dmxAppConnect.js"></script>
+    <meta charset="UTF-8">
+    <title>1</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="bootstrap/5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="dmxAppConnect/dmxScheduler/dmxScheduler.js" defer></script>
+</head>
+
+<body is="dmx-app" id="ekran" onload="toggle_full_screen();" class="bg2">
+    <button id="btn1" class="btn" onclick="toggle_full_screen();">Tam Ekran</button>
+    <dmx-scheduler id="scheduler1" dmx-on:tick="scEkranDetay.load({})" delay="3"></dmx-scheduler>
+    <dmx-serverconnect id="scEkranDetay" url="dmxConnect/api/ekranlar/ekran_liste.php"></dmx-serverconnect>
+    <div class="container-xxl mt-0 mb-0 ms-0 me-0 h-100 w-100 bg">
+    </div>
+
+    <script src="bootstrap/5/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        function toggle_full_screen()
+        {
+        if ((document.fullScreenElement && document.fullScreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen))
+        {
+        if (document.documentElement.requestFullScreen){
+        document.documentElement.requestFullScreen();
+        }
+        else if (document.documentElement.mozRequestFullScreen){ /* Firefox */
+        document.documentElement.mozRequestFullScreen();
+        }
+        else if (document.documentElement.webkitRequestFullScreen){ /* Chrome, Safari & Opera */
+        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+        else if (document.msRequestFullscreen){ /* IE/Edge */
+        document.documentElement.msRequestFullscreen();
+        }
+        }
+        else
+        {
+        if (document.cancelFullScreen){
+        document.cancelFullScreen();
+        }
+        else if (document.mozCancelFullScreen){ /* Firefox */
+        document.mozCancelFullScreen();
+        }
+        else if (document.webkitCancelFullScreen){ /* Chrome, Safari and Opera */
+        document.webkitCancelFullScreen();
+        }
+        else if (document.msExitFullscreen){ /* IE/Edge */
+        document.msExitFullscreen();
+        }
+        }
+        }
+       
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!-- Wappler include head-page="../index.html" appconnect="local" is="dmx-app" bootstrap5="local" id="odalar" components="{dmxBootstrap5TableGenerator:{},dmxBootstrap5Collapse:{},dmxBootstrap5Navigation:{},dmxFormatter:{}}" -->
+<dmx-serverconnect id="scYerleskelerVeOdalar" url="../dmxConnect/api/Yerleskeler_oda/yerleskeler_oda_liste.php"></dmx-serverconnect>
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="d-flex w-100 justify-content-lg-between mb-2">
+        <div class="d-block">
+            <h4>
+                Oda İşlemleri
+            </h4>
+        </div>
+        <div class="d-block">
+            <button id="btn1" class="btn btn-primary">
+                <i class="ti ti-door"></i> Oda Ekle</button>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body py-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>YERLEŞKE</th>
+                                <th>KAT BİLGİSİ</th>
+                                <th>ODA ADI</th>
+                                <th>ODA TİPİ</th>
+                                <th>EKRAN TİPİ</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scYerleskelerVeOdalar.data.query" id="tableRepeat1">
+                            <tr>
+                                <td>{{$index+1}}</td>
+                                <td>{{yerleske_adi}}</td>
+                                <td dmx-text="kyo_kat_bilgisi"></td>
+                                <td dmx-text="kyo_oda_adi"></td>
+                                <td dmx-text="ot_oda_tip_adi"></td>
+                                <td dmx-text="et_adi"></td>
+                                <td class="text-lg-end">
+                                    <a href="javascript:void(0)" class="text-body">
+                                        <i class="ti ti-edit ti-sm me-2"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" class="text-danger">
+                                        <i class="ti ti-trash ti-sm"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
