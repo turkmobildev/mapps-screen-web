@@ -17,16 +17,16 @@
       "routes": [
         {
           "type": "page",
-          "path": "/ekranlar",
-          "id": "ekranlar",
-          "url": "spa/ekranlar.html"
-        },
-        {
-          "type": "page",
           "path": "/",
           "id": "main",
           "url": "spa/main.html",
           "exact": "true"
+        },
+        {
+          "type": "page",
+          "path": "/ekranlar",
+          "id": "ekranlar",
+          "url": "spa/ekranlar.html"
         },
         {
           "type": "page",
@@ -39,6 +39,54 @@
           "path": "/odalar",
           "id": "odalar",
           "url": "spa/odalar.html"
+        },
+        {
+          "type": "page",
+          "path": "/ekran-listesi",
+          "id": "ekran_listesi",
+          "url": "spa/ekran_listesi.html"
+        },
+        {
+          "type": "page",
+          "path": "/toplantilar",
+          "id": "toplantilar",
+          "url": "spa/toplantilar.html"
+        },
+        {
+          "type": "page",
+          "path": "/ekranekle/:yerleskeid/:odaid/:odatipid/:rowid",
+          "id": "ekranekle",
+          "url": "spa/ekran_ekle_v2.html"
+        },
+        {
+          "type": "page",
+          "path": "/ekran-guncelle/:yerleskeid/:ekranid/:odatipi",
+          "id": "ekran_guncelle",
+          "url": "spa/ekran-guncelle.html"
+        },
+        {
+          "type": "page",
+          "path": "/oda-kayit/:yerleskeid",
+          "id": "odaekle",
+          "url": "spa/oda_ekle.html"
+        },
+        {
+          "type": "page",
+          "path": "/oda-kayit-guncelle/:odaid",
+          "id": "odakayitguncelle",
+          "url": "spa/oda_guncelle.html"
+        },
+        {
+          "type": "page",
+          "path": "/ekran_ekle_/:yerleskeid/:odaid/:odatipid/:rowid",
+          "id": "ekraneklevv",
+          "url": "spa/ekranekle_v3.html"
+        },
+        {
+          "type": "page",
+          "path": "/ekran_detay/:yerleskeid/:ekranid/:odatipi",
+          "id": "ekran_detayi",
+          "url": "spa/ekran_detay.html"
         }
       ]
     }

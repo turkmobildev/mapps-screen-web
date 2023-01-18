@@ -124,6 +124,23 @@ dmx.config({
         }
       ],
       "outputType": "array"
+    },
+    "repeat1": {
+      "meta": [
+        {
+          "type": "number",
+          "name": "oer_id"
+        },
+        {
+          "type": "text",
+          "name": "oer_ad"
+        },
+        {
+          "type": "text",
+          "name": "oer_class"
+        }
+      ],
+      "outputType": "array"
     }
   },
   "yerleskeler": {
@@ -266,6 +283,176 @@ dmx.config({
         {
           "type": "number",
           "name": "kyo_ekran_tipi"
+        }
+      ],
+      "outputType": "array"
+    },
+    "tableRepeat2": {
+      "meta": [
+        {
+          "name": "kyo_yerleske_id",
+          "type": "number"
+        },
+        {
+          "name": "kyo_id",
+          "type": "number"
+        },
+        {
+          "name": "yerleske_adi",
+          "type": "text"
+        },
+        {
+          "name": "kyo_kat_bilgisi",
+          "type": "text"
+        },
+        {
+          "name": "kyo_oda_adi",
+          "type": "text"
+        },
+        {
+          "name": "ot_oda_tip_adi",
+          "type": "text"
+        },
+        {
+          "name": "queryEkranlar",
+          "type": "array",
+          "sub": []
+        }
+      ],
+      "outputType": "array"
+    }
+  },
+  "ekranListesi": {
+    "repeat1": {
+      "meta": [
+        {
+          "name": "yerleske_adi",
+          "type": "text"
+        },
+        {
+          "name": "kyo_oda_adi",
+          "type": "text"
+        },
+        {
+          "name": "kyo_kat_bilgisi",
+          "type": "text"
+        },
+        {
+          "name": "et_adi",
+          "type": "text"
+        },
+        {
+          "name": "oeo_ekran_ip",
+          "type": "text"
+        },
+        {
+          "name": "oeo_hava_durumu",
+          "type": "boolean"
+        },
+        {
+          "name": "oeo_ad_soyad_bilgisi",
+          "type": "boolean"
+        },
+        {
+          "name": "oeo_unvan_goster",
+          "type": "boolean"
+        },
+        {
+          "name": "oe_oda_tip_id",
+          "type": "number"
+        },
+        {
+          "name": "oeo_ekran_renk_id",
+          "type": "number"
+        },
+        {
+          "name": "queryRenkler",
+          "type": "object",
+          "sub": []
+        }
+      ],
+      "outputType": "array"
+    }
+  },
+  "ekran": {
+    "localStorage": [
+      {
+        "type": "text",
+        "name": "ip"
+      }
+    ]
+  },
+  "ekranguncelle": {
+    "query": [
+      {
+        "type": "text",
+        "name": "ekranid"
+      }
+    ],
+    "repeat1": {
+      "meta": [
+        {
+          "type": "number",
+          "name": "oer_id"
+        },
+        {
+          "type": "text",
+          "name": "oer_ad"
+        },
+        {
+          "type": "text",
+          "name": "oer_class"
+        }
+      ],
+      "outputType": "array"
+    }
+  },
+  "ekrandetayi": {
+    "tableRepeat2": {
+      "meta": [
+        {
+          "type": "number",
+          "name": "okk_id"
+        },
+        {
+          "type": "number",
+          "name": "okk_ekranlar_id"
+        },
+        {
+          "type": "number",
+          "name": "okk_oda_kullanicilar_id"
+        },
+        {
+          "type": "number",
+          "name": "ok_id"
+        },
+        {
+          "type": "text",
+          "name": "ok_ad_soyad"
+        },
+        {
+          "type": "text",
+          "name": "ok_unvan"
+        },
+        {
+          "type": "text",
+          "name": "ok_telefon"
+        },
+        {
+          "type": "text",
+          "name": "ok_eposta"
+        },
+        {
+          "type": "number",
+          "name": "ok_durum"
+        },
+        {
+          "type": "number",
+          "name": "ok_tip"
+        },
+        {
+          "type": "datetime",
+          "name": "ok_olusturulma"
         }
       ],
       "outputType": "array"

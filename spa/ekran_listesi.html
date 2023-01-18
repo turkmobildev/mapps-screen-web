@@ -1,0 +1,89 @@
+<!-- Wappler include head-page="../index.html" appconnect="local" is="dmx-app" bootstrap5="local" jquery_35="cdn" id="ekranListesi" components="{dmxBootstrap5TableGenerator:{}}" -->
+<dmx-serverconnect id="scEkranListesi" url="../dmxConnect/api/ekranlar/ekran_liste.php"></dmx-serverconnect>
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+        <div class="col" dmx-repeat:repeat1="scEkranListesi.data.repeat">
+            <div class="card h-100">
+                <div class="card-body shadow">
+                    <div class="d-flex justify-content-between align-items-start mb-auto">
+                        <div class="d-block">
+                            <h5 class="card-title mb-1">{{kyo_kisi_ad_soyad}}</h5>
+                            <h5 class="card-title mb-1">{{kyo_oda_adi}}</h5>
+                            <h6 class="card-title ">{{et_adi}}</h6>
+                        </div>
+                        <div class="d-block" dmx-show="oe_oda_tip_id==3">
+                            <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
+                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-md pull-up" aria-label="John Doe" data-bs-original-title="John Doe">
+                                    <img class="rounded-circle" src="../../assets/img/avatars/0.png" alt="Avatar">
+                                </li>
+                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-md pull-up" aria-label="John Doe" data-bs-original-title="John Doe">
+                                    <img class="rounded-circle" src="../../assets/img/avatars/0.png" alt="Avatar">
+                                </li>
+                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-md pull-up" aria-label="John Doe" data-bs-original-title="John Doe">
+                                    <img class="rounded-circle" src="../../assets/img/avatars/0.png" alt="Avatar">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="d-block" dmx-show="oe_oda_tip_id==2">
+                            <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
+                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-md pull-up" aria-label="John Doe" data-bs-original-title="John Doe">
+                                    <img class="rounded-circle" src="../assets/img/avatars/0.png" alt="Avatar">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="d-block" dmx-show="oe_oda_tip_id==1">
+                            <li class="ti ti-lg ti-calendar-time"></li>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start mt-auto mb-1">
+                        <div class="d-block">
+                            <span class="badge badge-center rounded-pill me-3 w-px-30 h-px-30" dmx-class:bg-label-secondary="oeo_unvan_goster == 1 ? false:true" dmx-class:bg-label-success="oeo_unvan_goster == 1 ? true : false">
+                                <i class="ti ti-user ti-sm"></i>
+                            </span>
+                        </div>
+                        <div class="d-block">
+                            <span class="badge badge-center rounded-pill me-3 w-px-30 h-px-30" dmx-class:bg-label-secondary="" dmx-class:bg-label-success="true">
+                                <i class="ti ti-calendar-time ti-sm"></i>
+                            </span>
+                        </div>
+                        <div class="d-block">
+                            <span class="badge badge-center rounded-pill me-3 w-px-30 h-px-30" dmx-class:bg-label-secondary="oeo_hava_durumu==1?false:true" dmx-class:bg-label-success="oeo_hava_durumu==1?true:false">
+                                <i class="ti ti-cloud-fog ti-sm"></i>
+                            </span>
+                        </div>
+                        <div class="d-block">
+                            <span class="badge badge-center rounded-pill me-3 w-px-30 h-px-30" dmx-class:bg-label-secondary="oeo_kurum_logo==1?false:true" dmx-class:bg-label-success="oeo_kurum_logo==1?true:false">
+                                <i class="ti ti-badge-tm ti-sm"></i>
+                            </span>
+                        </div>
+                        <div class="d-block">
+                            <span class="badge badge-center rounded-pill me-3 w-px-30 h-px-30" dmx-class:bg-label-secondary="" dmx-class:bg-label-success="true">
+                                <i class="ti ti-badge-cc ti-sm"></i>
+                            </span>
+                        </div>
+
+
+                    </div>
+                    <div class="d-flex align-items-end justify-content-between mb-auto">
+                        <div class="d-block">
+                            <span class="badge" text-capitalized="" dmx-class:bg-label-success="oeo_ekran_ip ? true : false" dmx-class:bg-label-danger="oeo_ekran_ip ? false : true">{{oeo_ekran_ip ? oeo_ekran_ip:'Ip Tanımsız'}}</span>
+                        </div>
+                        <div class="d-block ms-1 me-auto">
+
+                            <div dmx-bind:class="rounded-rectangle {{queryRenkler.oer_class}}"></div>
+                        </div>
+                        <div class="d-block">
+                            <div class="btn-group" role="group" aria-label="Button Group">
+                                <a href="javascript:void(0)" id="btn1" class="text-body me-1"><i class="ti ti-settings ti-sm"></i></a>
+                                <a href="javascript:void(0)" id="btn2" class="text-body"><i class="ti ti-trash ti-sm"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

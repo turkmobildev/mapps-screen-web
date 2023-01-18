@@ -39,7 +39,8 @@ $app->define(<<<'JSON'
               "name": "kurum_yerleskeler"
             },
             "joins": [],
-            "query": "SELECT *\nFROM kurum_yerleskeler"
+            "query": "SELECT *\nFROM kurum_yerleskeler",
+            "primary": "yerleske_id"
           }
         },
         "output": true,
@@ -62,8 +63,8 @@ $app->define(<<<'JSON'
         "options": {
           "repeat": "{{queryYerleskeListe}}",
           "outputFields": [
-            "yerleske_id",
-            "yerleske_adi"
+            "yerleske_adi",
+            "yerleske_id"
           ],
           "exec": {
             "steps": {
@@ -77,7 +78,23 @@ $app->define(<<<'JSON'
                   "columns": [
                     {
                       "table": "kurum_yerleskeler_oda",
-                      "column": "*"
+                      "column": "kyo_id"
+                    },
+                    {
+                      "table": "kurum_yerleskeler_oda",
+                      "column": "kyo_yerleske_id"
+                    },
+                    {
+                      "table": "kurum_yerleskeler_oda",
+                      "column": "kyo_kat_bilgisi"
+                    },
+                    {
+                      "table": "kurum_yerleskeler_oda",
+                      "column": "kyo_oda_adi"
+                    },
+                    {
+                      "table": "kurum_yerleskeler_oda",
+                      "column": "kyo_oda_tip"
                     }
                   ],
                   "params": [
@@ -111,16 +128,18 @@ $app->define(<<<'JSON'
                             "type": "integer",
                             "primary": false,
                             "nullable": false,
+                            "default": "",
                             "name": "kyo_yerleske_id"
                           }
                         },
-                        "operation": "="
+                        "operation": "=",
+                        "table": "kurum_yerleskeler_oda"
                       }
                     ],
                     "conditional": null,
                     "valid": true
                   },
-                  "query": "SELECT *\nFROM kurum_yerleskeler_oda\nWHERE kyo_yerleske_id = :P1 /* {{yerleske_id}} */"
+                  "query": "SELECT kyo_id, kyo_yerleske_id, kyo_kat_bilgisi, kyo_oda_adi, kyo_oda_tip\nFROM kurum_yerleskeler_oda\nWHERE kyo_yerleske_id = :P1 /* {{yerleske_id}} */"
                 }
               },
               "output": true,
@@ -144,10 +163,6 @@ $app->define(<<<'JSON'
                 {
                   "type": "number",
                   "name": "kyo_oda_tip"
-                },
-                {
-                  "type": "number",
-                  "name": "kyo_ekran_tipi"
                 }
               ],
               "outputType": "array"
@@ -203,10 +218,6 @@ $app->define(<<<'JSON'
               {
                 "type": "number",
                 "name": "kyo_oda_tip"
-              },
-              {
-                "type": "number",
-                "name": "kyo_ekran_tipi"
               }
             ]
           }

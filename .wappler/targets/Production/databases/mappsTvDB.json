@@ -104,18 +104,112 @@
           "system_versioned": false
         },
         "columns": {
-          "oda_tipleri_id": {
+          "ot_oda_id": {
             "db": {
               "type": "increments",
               "primary": true,
               "nullable": false
             }
           },
-          "oda_tip": {
+          "ot_oda_tip_adi": {
             "db": {
               "type": "string",
               "default": "",
               "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ot_ky_id": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "oda_ekran_durumlar": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "oed_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "oed_kid": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oed_durum_detay": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "toplanti_katilimcilar": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "tk_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "tk_toplanti_id": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "tk_ad_soyad": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "tk_telefon": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 12,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "tk_aciklama": {
+            "db": {
+              "type": "text",
+              "default": "",
+              "maxLength": 65535,
               "primary": false,
               "nullable": true
             }
@@ -132,10 +226,10 @@
         "columns": {
           "yerleske_id": {
             "db": {
-              "type": "integer",
+              "type": "increments",
               "default": "",
-              "primary": false,
-              "nullable": true
+              "primary": true,
+              "nullable": false
             }
           },
           "yerleske_adi": {
@@ -149,7 +243,7 @@
           }
         }
       },
-      "oda_ekran_ozellikleri": {
+      "oda_ekran_tipleri": {
         "db": {
           "engine": "InnoDB",
           "schema": "mappstv",
@@ -157,87 +251,165 @@
           "system_versioned": false
         },
         "columns": {
-          "eo_id": {
+          "et_id": {
+            "db": {
+              "type": "increments",
+              "default": "",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "et_adi": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "oda_ekran_kullanicilar": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "okk_id": {
             "db": {
               "type": "increments",
               "primary": true,
               "nullable": false
             }
           },
-          "eo_k_oda_id": {
+          "okk_ekranlar_id": {
             "db": {
               "type": "integer",
-              "default": "0",
+              "default": "",
               "primary": false,
               "nullable": true
             }
           },
-          "eo_oda_tipi_id": {
+          "okk_oda_kullanicilar_id": {
             "db": {
               "type": "integer",
-              "default": "0",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "oda_ekran_renk": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "oer_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "oer_ad": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "oer_class": {
+            "db": {
+              "type": "string",
+              "maxLength": 100,
+              "primary": false,
+              "nullable": false
+            }
+          }
+        }
+      },
+      "oda_ekran": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "oe_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "oe_oda_id": {
+            "db": {
+              "type": "integer",
+              "default": "",
               "primary": false,
               "nullable": true
             }
           },
-          "eo_ip": {
+          "oe_yerleske_id": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oe_oda_tip_id": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          }
+        }
+      },
+      "toplanti": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "t_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "t_oda_id": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "t_konu": {
             "db": {
               "type": "string",
               "default": "",
-              "maxLength": 15,
+              "maxLength": 255,
               "primary": false,
               "nullable": true
             }
           },
-          "eo_yerleske": {
-            "db": {
-              "type": "boolean",
-              "default": "0",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "eo_tarih_saat": {
-            "db": {
-              "type": "boolean",
-              "default": "0",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "eo_durum": {
-            "db": {
-              "type": "boolean",
-              "default": "0",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "eo_hava_durumu": {
-            "db": {
-              "type": "boolean",
-              "default": "0",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "eo_toplanti_konu": {
-            "db": {
-              "type": "boolean",
-              "default": "0",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "eo_toplanti_baslangic": {
-            "db": {
-              "type": "datetime",
-              "default": "'0000-00-00 00:00:00'",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "eo_toplanti_bitis": {
+          "t_baslangic": {
             "db": {
               "type": "datetime",
               "default": "",
@@ -245,12 +417,20 @@
               "nullable": true
             }
           },
-          "eo_toplanti_katilimci_listesi": {
+          "t_bitis": {
+            "db": {
+              "type": "datetime",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "t_tum_gun": {
             "db": {
               "type": "boolean",
               "default": "0",
               "primary": false,
-              "nullable": true
+              "nullable": false
             }
           }
         }
@@ -270,16 +450,15 @@
               "nullable": false
             }
           },
-          "kyo_kat_bilgisi": {
+          "kyo_yerleske_id": {
             "db": {
-              "type": "string",
+              "type": "integer",
               "default": "",
-              "maxLength": 255,
               "primary": false,
               "nullable": true
             }
           },
-          "kyo_oda_adi": {
+          "kyo_kat_bilgisi": {
             "db": {
               "type": "string",
               "default": "",
@@ -303,85 +482,8 @@
               "primary": false,
               "nullable": true
             }
-          }
-        }
-      },
-      "oda_ekran": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "mappstv",
-          "collation": "utf8mb4_general_ci",
-          "system_versioned": false
-        },
-        "columns": {
-          "e_id": {
-            "db": {
-              "type": "increments",
-              "primary": true,
-              "nullable": false
-            }
           },
-          "e_device_id": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 100,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "e_ko_oda_id": {
-            "db": {
-              "type": "integer",
-              "default": "",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "e_ky_id": {
-            "db": {
-              "type": "integer",
-              "default": "",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "e_ip": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 15,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "e_ot_oda_tip": {
-            "db": {
-              "type": "integer",
-              "default": "",
-              "primary": false,
-              "nullable": true
-            }
-          }
-        }
-      },
-      "oda_ekran_tipleri": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "mappstv",
-          "collation": "utf8_general_ci",
-          "system_versioned": false
-        },
-        "columns": {
-          "et_id": {
-            "db": {
-              "type": "integer",
-              "default": "",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "et_adi": {
+          "kyo_oda_adi": {
             "db": {
               "type": "string",
               "default": "",
@@ -389,47 +491,280 @@
               "primary": false,
               "nullable": true
             }
+          },
+          "selectFontSizeOdaAdi": {
+            "db": {
+              "type": "string",
+              "default": "'110'",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "selectRenkOdaAdi": {
+            "db": {
+              "type": "string",
+              "default": "'text-white'",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "kyo_birim_adi": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "selectFontSizeBirimAdi": {
+            "db": {
+              "type": "string",
+              "default": "'110'",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "selectRenkBirimAdi": {
+            "db": {
+              "type": "string",
+              "default": "'text-white'",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "kyo_unvan": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "selectFontSizeUnvan": {
+            "db": {
+              "type": "string",
+              "default": "'110'",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "selectRenkUnvan": {
+            "db": {
+              "type": "string",
+              "default": "'text-white'",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "kyo_kisi_ad_soyad": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "selectFontSizeAdSoyad": {
+            "db": {
+              "type": "string",
+              "default": "'110'",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "selectRenkAdSoyad": {
+            "db": {
+              "type": "string",
+              "default": "'text-white'",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
           }
         }
       },
-      "toplanti": {
+      "oda_ekran_ozellikleri": {
         "db": {
           "engine": "InnoDB",
           "schema": "mappstv",
           "collation": "utf8_general_ci",
           "system_versioned": false
-        }
-      },
-      "oda_ekran_renk": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "mappstv",
-          "collation": "utf8_general_ci",
-          "system_versioned": false
-        }
-      },
-      "oda_ekran_durumlar": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "mappstv",
-          "collation": "utf8_general_ci",
-          "system_versioned": false
-        }
-      },
-      "toplanti_katilimcilar": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "mappstv",
-          "collation": "utf8_general_ci",
-          "system_versioned": false
-        }
-      },
-      "oda_ekran_kullanicilar": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "mappstv",
-          "collation": "utf8_general_ci",
-          "system_versioned": false
+        },
+        "columns": {
+          "oeo_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "oeo_oda_id": {
+            "db": {
+              "type": "integer",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_yerleske_id": {
+            "db": {
+              "type": "integer",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_oda_ekran_id": {
+            "db": {
+              "type": "integer",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_device_no": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_ekran_renk_id": {
+            "db": {
+              "type": "integer",
+              "default": "13",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_ekran_ip": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 25,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_tarih_saat": {
+            "db": {
+              "type": "boolean",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_ad_soyad_bilgisi": {
+            "db": {
+              "type": "boolean",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_unvan_goster": {
+            "db": {
+              "type": "boolean",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_durum": {
+            "db": {
+              "type": "boolean",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_hava_durumu": {
+            "db": {
+              "type": "boolean",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_toplanti_konu": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_toplanti_baslangic": {
+            "db": {
+              "type": "datetime",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_toplanti_bitis": {
+            "db": {
+              "type": "datetime",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_toplanti_katilimci_listesi": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_kurum_logo": {
+            "db": {
+              "type": "boolean",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_oda_adi_goster": {
+            "db": {
+              "type": "boolean",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_font_size": {
+            "db": {
+              "type": "text",
+              "default": "",
+              "maxLength": 65535,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "oeo_birim_adi_goster": {
+            "db": {
+              "type": "boolean",
+              "default": "0",
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       }
     },

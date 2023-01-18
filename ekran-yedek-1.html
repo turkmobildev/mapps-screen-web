@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="tr" is="dmx-app">
+
+<head>
+    <meta name="ac:route" content="/monitor">
+    <base href="/">
+    <script src="dmxAppConnect/dmxAppConnect.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+    <!-- WAPPLER BOOTSTRAP -->
+    <!-- Icons -->
+    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css" />
+    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+    <!-- ANALOG SAAT -->
+
+    <script src="js/moment.js/2/moment-with-locales.min.js"></script>
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="bootstrap/5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
+    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="dmxAppConnect/dmxScheduler/dmxScheduler.js" defer></script>
+    <script src="dmxAppConnect/dmxBrowser/dmxBrowser.js" defer></script>
+    <script src="dmxAppConnect/dmxStateManagement/dmxStateManagement.js" defer></script>
+    <script src="dmxAppConnect/dmxBootstrap5Modal/dmxBootstrap5Modal.js" defer></script>
+    <script src="dmxAppConnect/dmxFormatter/dmxFormatter.js" defer></script>
+
+    <script src="dmxAppConnect/dmxTyped/dmxTyped.js" defer></script>
+    <script src="dmxAppConnect/dmxTyped/typed.min.js" defer></script>
+</head>
+
+<body id="ekran" onload="toggle_full_screen();" dmx-bind:class="scEkranDetay.data.query.oer_class">
+    <dmx-datetime id="var1" interval="minutes"></dmx-datetime>
+    <dmx-local-manager id="localStorageEkran"></dmx-local-manager>
+    <div class="modal fade" id="modal1" is="dmx-bs5-modal" tabindex="-1" dmx-bind:show="localStorageEkran.data.ip?false:true" show="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h1 class="modal-title">CİHAZ IP BİLGİSİ BULUNAMADI !</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Cihaz IP bilgisini tanımlayınız...</p>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col">
+                                <input id="inpLocalStorage" name="LocalStorage" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 text-center mt-3 mb-3">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" dmx-on:click="localStorageEkran.set('ip',inpLocalStorage.value.trimLeft().trimRight())">IP Bilgisini Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div is="dmx-browser" id="browserEkran"></div>
+    <button id="btn1" class="btn" onclick="toggle_full_screen();">Tam Ekran</button>
+    <button id="btn2" class="btn" dmx-on:click="localStorageEkran.removeAll()">IP Temizle</button>
+    <dmx-scheduler id="scheduler1" dmx-on:tick="scEkranDetay.load({});scHavaDurumu.load({})" delay="3"></dmx-scheduler>
+    <dmx-serverconnect id="scEkranDetay" url="dmxConnect/api/BilgiEkrani/ekran.php" dmx-param:ip="localStorageEkran.data.ip"></dmx-serverconnect>
+    <dmx-serverconnect id="scHavaDurumu" url="dmxConnect/api/hava_durumu/hava_durumu_al.php"></dmx-serverconnect>
+    <div class="container-fluid mt-0 mb-0 ms-0 me-0">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col align-self-center text-center">
+                <img src="assets/images/meski-logo.png" height="150" dmx-show="scEkranDetay.data.query.oeo_kurum_logo == 1 ? true : false">
+            </div>
+            <div class="col-4"> </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-12 text-center">
+                <h1 class="fw-bolder" style="font-size: 160px !important;">{{scEkranDetay.data.queryEkranListesi[0].ekranlar_ozellik_oda_adi}}</h1>
+            </div>
+        </div>
+        <div class="col-12 align-self-center text-center mt-4" is="dmx-if" id="conOdaAdi" dmx-bind:condition="scEkranDetay.data.query.oeo_oda_adi_goster == 1 ? true : false">
+            <h1 class="fw-bold text-white" style="font-size: 160px !important;">{{scEkranDetay.data.queryOdaAdi.kyo_oda_adi}}</h1>
+        </div>
+        <div class="row mt-1 align-items-center justify-content-center">
+            <div class="col-12 align-self-center text-center">
+                <h1 class="fw-bold {{scEkranDetay.data.queryOdaAdi.selectFontSizeBirimAdi}} {{scEkranDetay.data.queryOdaAdi.selectRenkBirimAdi}} mt-5">{{scEkranDetay.data.queryOdaAdi.kyo_birim_adi}} </h1>
+            </div>
+
+            <div class="col-12 align-self-center text-center fw-bold" is="dmx-if" id="conAdSoyad" dmx-bind:condition="scEkranDetay.data.query.oeo_ad_soyad_bilgisi==1?true:false">
+                <h1 dmx-bind:class="fw-bold {{scEkranDetay.data.queryOdaAdi.selectFontSizeAdSoyad}} {{scEkranDetay.data.queryOdaAdi.selectRenkAdSoyad}}">
+
+                    <span>{{scEkranDetay.data.queryOdaAdi.kyo_kisi_ad_soyad}}</span>
+                </h1>
+            </div>
+
+            <div class="col-12 align-self-center text-center fw-bold" is="dmx-if" id="conUnvan" dmx-bind:condition="scEkranDetay.data.query.oeo_unvan_goster == 1 ? true : false">
+                <h1 dmx-bind:class="{{scEkranDetay.data.queryOdaAdi.selectFontSizeUnvan}} fw-bold {{scEkranDetay.data.queryOdaAdi.selectRenkUnvan}}"> {{scEkranDetay.data.queryOdaAdi.kyo_unvan}}</h1>
+            </div>
+
+            <div class="col-12 align-self-center text-center" is="dmx-if" id="conOdaDurum" dmx-bind:condition="scEkranDetay.data.query.oeo_oda_adi_goster == 1 ? true : false">
+
+                <h1 dmx-bind:class="{{scEkranDetay.data.queryOdaAdi.selectFontSizeOdaAdi}} fw-bold {{scEkranDetay.data.queryOdaAdi.selectRenkOdaAdi}}"> {{scEkranDetay.data.queryOdaAdi.kyo_oda_adi}}</h1>
+            </div>
+
+        </div>
+        <div class="row mt-2 mb-auto justify-content-center align-items-center" dmx-show="scEkranDetay.data.query.oeo_durum==1?true:false">
+            <div class="col-12 align-self-center fw-bolder text-center">
+                <h1 class="display-1 text-white fw-bolder">
+                    MÜSAİT
+                </h1>
+            </div>
+        </div>
+        <div class="row mt-2 mb-auto">
+            <div class="col-12 text-center">
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row fixed-bottom w-100 h-10 align-items-end justify-content-around">
+        <div class="col align-self-end" id="conHavaDurumu" dmx-class:d-none="scEkranDetay.data.query.oeo_hava_durumu==1 ? false : true">
+            <a class="weatherwidget-io" href="https://forecast7.com/tr/36d6333d62/mersin-province/" data-label_1="MERSIN HAVA DURUMU" data-icons="Climacons Animated" data-mode="Current" data-theme="pure" data-basecolor="" data-textcolor="#FFF">MERSIN HAVA DURUMU</a>
+            <script>
+                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+            </script>
+        </div>
+        <div class="col align-self-center">
+
+        </div>
+        <div class="col align-self-end"></div>
+        <div class="col align-self-end text-center">
+            <h1 class="text-white" dmx-show="scEkranDetay.data.query.oeo_tarih_saat==1 ? true : false">{{var1.datetime.formatDate('dd.MM.yyyy')}}<br>
+                {{var1.datetime.formatDate('HH:mm')}}
+            </h1>
+            <h4 class="text-white" dmx-show="scEkranDetay.data.query.oeo_tarih_saat == 1 ? true : false">{{var1.datetime.formatDate2('dddd')}} </h4>
+        </div>
+    </div>
+
+    <script src="bootstrap/5/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function reload(){
+        window.localtion.reload();
+    }
+    </script>
+    <script type="text/javascript">
+        function toggle_full_screen()
+        {
+        if ((document.fullScreenElement && document.fullScreenElement !== null) || (!document.mozFullScreen && !document.webkitIsFullScreen))
+        {
+        if (document.documentElement.requestFullScreen){
+        document.documentElement.requestFullScreen();
+        }
+        else if (document.documentElement.mozRequestFullScreen){ /* Firefox */
+        document.documentElement.mozRequestFullScreen();
+        }
+        else if (document.documentElement.webkitRequestFullScreen){ /* Chrome, Safari & Opera */
+        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+        else if (document.msRequestFullscreen){ /* IE/Edge */
+        document.documentElement.msRequestFullscreen();
+        }
+        }
+        else
+        {
+        if (document.cancelFullScreen){
+        document.cancelFullScreen();
+        }
+        else if (document.mozCancelFullScreen){ /* Firefox */
+        document.mozCancelFullScreen();
+        }
+        else if (document.webkitCancelFullScreen){ /* Chrome, Safari and Opera */
+        document.webkitCancelFullScreen();
+        }
+        else if (document.msExitFullscreen){ /* IE/Edge */
+        document.msExitFullscreen();
+        }
+        }
+        }
+       
+    </script>
+    <script type="text/javascript">
+        dmx.Formatter('string', 'formatDate2', function(val, format) {
+            moment.locale('tr');
+return moment(val).format(format);
+});
+    </script>
+
+</body>
+
+</html>

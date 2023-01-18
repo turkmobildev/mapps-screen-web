@@ -1,3 +1,117 @@
+
+
+.fs70{
+  font-size: 70px !important;
+}
+.fs80{
+  font-size: 80px !important;
+}
+.fs90{
+  font-size: 90px !important;
+}
+.fs100{
+  font-size: 100px !important;
+}
+.fs110{
+  font-size: 110px !important;
+}
+.fs120{
+  font-size: 120px !important;
+}
+.fs130{
+  font-size: 130px !important;
+}
+.fs140{
+  font-size: 140px !important;
+}
+.fs150{
+  font-size: 150px !important;
+}
+.fs160{
+  font-size: 160px !important;
+}
+
+.kare{
+  width: 200;
+  max-height: 80;
+}
+
+.rounded-rectangle {
+  width: 60px;
+  max-height: 24px;
+  border-radius: 4px;
+}
+
+
+
+.bg15 {
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(#CBDA00),
+    to(#ffffff)
+  );
+  background-image: linear-gradient(to top, #CBDA00 0%, #ffffff 100%);
+  height: 100vh;
+}
+
+.bg15_show {
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(#CBDA00),
+    to(#ffffff)
+  );
+  background-image: linear-gradient(to top, #CBDA00 0%, #ffffff 100%);
+}
+
+.bg14 {
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(#40AA07),
+    to(#ffffff)
+  );
+  background-image: linear-gradient(to top, #40AA07 0%, #ffffff 100%);
+  height: 100vh;
+}
+.bg14_show {
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(#40AA07),
+    to(#ffffff)
+  );
+  background-image: linear-gradient(to top, #40AA07 0%, #ffffff 100%);
+}
+
+.bg13 {
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(#0093E9),
+    to(#ffffff)
+  );
+  background-image: linear-gradient(to top, #0093E9 0%, #ffffff 100%);
+  height: 100vh;
+}
+
+.bg13_show {
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    from(#0093E9),
+    to(#ffffff)
+  );
+  background-image: linear-gradient(to top, #0093E9 0%, #ffffff 100%);
+}
+
 .bg1 {
   background-image: -webkit-gradient(
     linear,
@@ -148,6 +262,16 @@
   );
 }
 
+.bg11 {
+  height: 100vh;
+  background-color: #fbab7e;
+  background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
+}
+
+bg11_show {
+  background-color: #fbab7e;
+  background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
+}
 .div-bottom {
   position: absolute;
   bottom: 0;

@@ -12,11 +12,27 @@ RewriteRule ^/?ekran(?:/)?$ dmxConnect/api/ekranlar/ekran_liste.php [QSA,NC,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^/?(?:/)?$ index.html [QSA,NC,L]
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^/?ekranlar(?:/)?$ index.html [QSA,NC,L]
-RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^/?(?:/)?$ index.html [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?ekranlar(?:/)?$ index.html [QSA,NC,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^/?yerleskeler(?:/)?$ index.html [QSA,NC,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^/?odalar(?:/)?$ index.html [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?ekran-listesi(?:/)?$ index.html [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?toplantilar(?:/)?$ index.html [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?ekranekle/([^/]+?)/([^/]+?)/([^/]+?)/([^/]+?)(?:/)?$ index.html?yerleskeid=$1&odaid=$2&odatipid=$3&rowid=$4 [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?ekran-guncelle/([^/]+?)/([^/]+?)/([^/]+?)(?:/)?$ index.html?yerleskeid=$1&ekranid=$2&odatipi=$3 [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?oda-kayit/([^/]+?)(?:/)?$ index.html?yerleskeid=$1 [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?oda-kayit-guncelle/([^/]+?)(?:/)?$ index.html?odaid=$1 [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?ekran_ekle_/([^/]+?)/([^/]+?)/([^/]+?)/([^/]+?)(?:/)?$ index.html?yerleskeid=$1&odaid=$2&odatipid=$3&rowid=$4 [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?ekran_detay/([^/]+?)/([^/]+?)/([^/]+?)(?:/)?$ index.html?yerleskeid=$1&ekranid=$2&odatipi=$3 [QSA,NC,L]
 ## End Wappler routing

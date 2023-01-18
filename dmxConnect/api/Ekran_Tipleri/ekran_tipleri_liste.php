@@ -38,7 +38,8 @@ $app->define(<<<'JSON'
             "name": "oda_ekran_tipleri"
           },
           "joins": [],
-          "query": "SELECT *\nFROM oda_ekran_tipleri"
+          "query": "SELECT *\nFROM oda_ekran_tipleri",
+          "primary": "et_id"
         }
       },
       "output": true,

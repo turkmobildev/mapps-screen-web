@@ -46,6 +46,7 @@
 
   <!-- Helpers -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="js/moment.js/2/moment-with-locales.min.js"></script>
   <script src="../../assets/vendor/js/helpers.js"></script>
 
   <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
@@ -70,9 +71,26 @@
   <script src="dmxAppConnect/dmxNotifications/dmxNotifications.js" defer></script>
   <script src="dmxAppConnect/dmxBootstrap5Collapse/dmxBootstrap5Collapse.js" defer></script>
 
+
+  <link rel="stylesheet" href="https://unpkg.com/@fullcalendar/core@4.4.2/main.min.css" />
+  <script src="https://unpkg.com/@fullcalendar/core@4.4.2/main.min.js" defer></script>
+  <script src="https://unpkg.com/@fullcalendar/core@4.4.2/locales-all.min.js" defer></script>
+  <script src="https://unpkg.com/@fullcalendar/interaction@4.4.2/main.min.js" defer></script>
+  <script src="https://unpkg.com/@fullcalendar/daygrid@4.4.2/main.min.js" defer></script>
+  <script src="dmxAppConnect/dmxCalendar/dmxCalendar.js" defer></script>
+  <script src="https://unpkg.com/@fullcalendar/google-calendar@4.4.2/main.min.js" defer></script>
+  <link rel="stylesheet" href="dmxAppConnect/dmxDatePicker/daterangepicker.min.css" />
+  <script src="dmxAppConnect/dmxDatePicker/daterangepicker.min.js" defer></script>
+  <link rel="stylesheet" href="dmxAppConnect/dmxDatePicker/dmxDatePicker.css" />
+  <script src="dmxAppConnect/dmxDatePicker/dmxDatePicker.js" defer></script>
+  <link rel="stylesheet" href="https://unpkg.com/@fullcalendar/daygrid@4.4.2/main.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@fullcalendar/list@4.4.2/main.min.css" />
+  <script src="https://unpkg.com/@fullcalendar/list@4.4.2/main.min.js" defer></script>
+  <script src="dmxAppConnect/dmxFormRepeat/dmxFormRepeat.js" defer></script>
 </head>
 
 <body is="dmx-app" id="index">
+  <dmx-query-manager id="query1"></dmx-query-manager>
   <div is="dmx-browser" id="browser1"></div>
   <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
@@ -120,8 +138,13 @@
                 </a>
               </li>
               <li class="menu-item" dmx-class:active="browser1.location.pathparts[0]=='ekranlar' ? true : false">
-                <a href="./ekranlar" class="menu-link">
-                  <div data-i18n="Ekranlar">Ekranlar</div>
+                <a href="./toplantilar" class="menu-link">
+                  <div data-i18n="Toplantılar">Toplantılar</div>
+                </a>
+              </li>
+              <li class="menu-item" dmx-class:active="browser1.location.pathparts[0]=='ekran-listesi' ? true : false">
+                <a href="./ekran-listesi" class="menu-link">
+                  <div data-i18n="Ekranlar Listesi">Ekran Listesi</div>
                 </a>
               </li>
               <li class="menu-item" dmx-class:active="browser1.location.pathparts[0]=='' ? true : false">
@@ -254,13 +277,19 @@
         <!-- / Navbar -->
 
         <!-- Content -->
-        <div is="dmx-route" path="/ekranlar" url="spa/ekranlar.html" id="ekranlar"></div>
         <div is="dmx-route" path="/" url="spa/main.html" id="main" exact="true"></div>
+        <div is="dmx-route" path="/ekranlar" url="spa/ekranlar.html" id="ekranlar"></div>
         <div is="dmx-route" path="/yerleskeler" url="spa/yerleskeler.html" id="yerleskeler"></div>
-        <div is="dmx-route" path="/odalar" url="spa/odalar.html" id="odalar"></div>
-
+        <div is="dmx-route" path="/odalar" url="spa/odalar.html" id="odalar" dmx-on:show="scOdalar.load({},true)"></div>
+        <div is="dmx-route" path="/ekran-listesi" url="spa/ekran_listesi.html" id="ekran_listesi"></div>
+        <div is="dmx-route" path="/toplantilar" url="spa/toplantilar.html" id="toplantilar"></div>
+        <div is="dmx-route" path="/ekranekle/:yerleskeid/:odaid/:odatipid/:rowid" url="spa/ekran_ekle_v2.html" id="ekranekle"></div>
+        <div is="dmx-route" path="/ekran-guncelle/:yerleskeid/:ekranid/:odatipi" url="spa/ekran-guncelle.html" id="ekran_guncelle"></div>
+        <div is="dmx-route" path="/oda-kayit/:yerleskeid" url="spa/oda_ekle.html" id="odaekle"></div>
+        <div is="dmx-route" path="/oda-kayit-guncelle/:odaid" url="spa/oda_guncelle.html" id="odakayitguncelle"></div>
+        <div is="dmx-route" path="/ekran_ekle_/:yerleskeid/:odaid/:odatipid/:rowid" url="spa/ekranekle_v3.html" id="ekraneklevv"></div>
+        <div is="dmx-route" path="/ekran_detay/:yerleskeid/:ekranid/:odatipi" url="spa/ekran_detay.html" id="ekran_detayi"></div>
         <!-- / Content -->
-
         <!-- Footer -->
         <footer class="content-footer footer bg-footer-theme">
           <div class="container-xxl">
@@ -275,7 +304,7 @@
               <div>
                 <a href="https://turkmobil.com.tr/" class="footer-link me-4" target="_blank">Lisans</a>
 
-                <a href="https://urkmobil.com.tr/" target="_blank" class="footer-link me-4">Yardım X Destek</a>
+                <a href="https://turkmobil.com.tr/" target="_blank" class="footer-link me-4">Yardım X Destek</a>
               </div>
             </div>
           </div>
@@ -308,11 +337,9 @@
   <!-- Vendors JS -->
   <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
   <script src="../../assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
-  <script src="../../assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
   <script src="../../assets/vendor/libs/select2/select2.js"></script>
   <!-- Main JS -->
   <script src="../../assets/js/main.js"></script>
-
   <!-- Page JS -->
   <script src="../../assets/js/form-wizard-icons.js"></script>
   <script src="../../assets/js/dashboards-crm.js"></script>

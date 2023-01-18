@@ -1,0 +1,270 @@
+<!-- Wappler include head-page="../index.html" appConnect="local" is="dmx-app" bootstrap5="local" jquery_35="cdn" moment_2="local with locales" components="{dmxBootstrap5Navigation:{},dmxBrowser:{},dmxNotifications:{},dmxStateManagement:{}}" -->
+<div is="dmx-browser" id="browserEkranEkle"></div>
+<dmx-serverconnect id="scRenkler" url="../dmxConnect/api/ekranlar_renkler/renk_listesi.php"></dmx-serverconnect>
+<dmx-serverconnect id="scYerleskeler" url="../dmxConnect/api/Yerleskeler/yerleske_liste.php"></dmx-serverconnect>
+<dmx-serverconnect id="scOdalar" url="../dmxConnect/api/Yerleskeler_oda/yerleskeler_oda_liste.php"></dmx-serverconnect>
+<dmx-serverconnect id="scOdaDetay" url="../dmxConnect/api/Yerleskeler_oda/yerleskeler_oda_detay.php" dmx-param:id="params.odaid"></dmx-serverconnect>
+<dmx-serverconnect id="scOdaTipleri" url="../dmxConnect/api/Yerleskeler_Oda_Tipleri/yerleskeler_Oda_Tipleri_liste.php"></dmx-serverconnect>
+
+<dmx-notifications id="notifies1"></dmx-notifications>
+
+<dmx-serverconnect id="scEkranOzellikleriDetay" url="../dmxConnect/api/EkranOzellikleri/ekranOzellikleri_detay.php" dmx-param:ekranid="params.rowid"></dmx-serverconnect>
+<dmx-query-manager id="queryEkranGuncelle"></dmx-query-manager>
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Oda İşlemleri /</span> Yeni Ekran Tanımlayın </h4>
+
+
+    <div class="row">
+        <div class="col-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="user-avatar-section">
+                        <div class=" d-flex align-items-center flex-column">
+                            <div class="d-block bg1_show rounded mb-3" style="height: 80px !important; width: 200px !important;"></div>
+
+                            <div class="user-info text-center">
+                                <h4 class="mb-2">{{formEkranEkle.inp_oe_oda_tip_id.selectedText}} </h4>
+                                <span class="badge bg-label-secondary mt-1">IP : {{params.odaid}} </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-around
+                    flex-wrap mt-3 pt-3 pb-4 border-bottom">
+                    </div>
+                    <p class="mt-4 small text-uppercase text-muted">Detaylar</p>
+                    <div class="info-container">
+                        <ul class="list-unstyled">
+                            <li class="mb-2 pt-1"><span class="fw-semibold me-1">Birim:</span>
+                                <span>{{scOdaDetay.data.query.kyo_birim_adi}} </span>
+                            </li>
+                            <li class="mb-2"><span class="fw-semibold me-1">Ünvan:</span>
+                                <span>{{scOdaDetay.data.query.kyo_unvan}} </span>
+                            </li>
+                            <li class="mb-2 pt-1"><span class="fw-semibold me-1">Adı Soyadı:</span>
+                                <span>{{scOdaDetay.data.query.kyo_kisi_ad_soyad}}</span>
+                            </li>
+                            <li class="mb-2 pt-1"><span class="fw-semibold me-1">Telefon:</span>
+                                <span></span>
+                            </li>
+                            <li class="mb-2 pt-1"><span class="fw-semibold me-1">Dahili:</span>
+                                <span></span>
+                            </li>
+
+                        </ul>
+                        <div class="d-flex justify-content-center">
+                            <a href="javascript:;" class="btn btn-label-danger suspend-user waves-effect">TÜM KAYDI SIFIRLA</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- User Content -->
+        <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+            <div class="card">
+                <div class="card-body py-2">
+                    <ul class="nav nav-tabs" id="navTabs1_tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="navTabs1_1_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_1" role="tab" aria-controls="navTabs1_1" aria-selected="true"><i class="ti ti-device-tv me-1 ti-xs"></i> Ekran İşlemleri</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="navTabs1_2_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_2" role="tab" aria-controls="navTabs1_2" aria-selected="false"><i class="ti ti-xs ti-user me-1"></i> Kullanıcı Ayarları</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="navTabs1_3_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_3" role="tab" aria-controls="navTabs1_3" aria-selected="false"><i class="ti ti-xs me-1 ti-settings"></i>Ayarlar</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="navTabs1_content">
+                        <div class="tab-pane fade show active" id="navTabs1_1" role="tabpanel">
+                            <form is="dmx-serverconnect-form" id="formEkranEkle" method="post" action="../dmxConnect/api/ekranlar/ekran_ekle_v2.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-on:success="notifies1.success('Ekran ayarlarınız başarılı olarak güncellenmiştir.');formEkranEkle.reset();browserEkranEkle.goto('./odalar')">
+                                <input id="ozellikid" name="ozellikRowId" dmx-bind:value="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_id" type="hidden">
+                                <h5 class="mb-4 mt-4">1. Ekran Tanımlama Bilgileri</h5>
+                                <div class="row gx-3">
+                                    <div class="col">
+                                        <div class="form-group mb-3">
+                                            <label for="inp_oe_yerleske_id">Yerleşke (*)</label>
+                                            <select id="inp_oe_yerleske_id" class="form-select" name="oe_yerleske_id" dmx-bind:options="scYerleskeler.data.queryYerleskeListe" optiontext="yerleske_adi" optionvalue="yerleske_id" required="" data-msg-required="Bu alan zorunludur." dmx-bind:value="params.yerleskeid">
+                                                <option value="">Seçiniz...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group mb-3">
+                                            <label for="inp_oda_id">Oda (*)</label>
+                                            <select id="inp_oda_id" class="form-select" name="oe_oda_id" dmx-bind:options="scOdalar.data.repeat.where(`kyo_yerleske_id`, inp_oe_yerleske_id.value, '==')" optiontext="kyo_id+' - '+kyo_oda_adi+' - '+kyo_kat_bilgisi" optionvalue="kyo_id" required="" data-msg-required="Bu alan zorunludur." dmx-bind:value="params.odaid">
+                                                <option value="">Seçiniz...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="inp_oe_oda_tip_id">Oda Tipi (*)</label>
+                                        <div class="form-group mb-3">
+
+                                            <select id="inp_oe_oda_tip_id" class="form-select" name="oe_oda_tip_id" dmx-bind:options="scOdaTipleri.data.query" optiontext="ot_oda_tip_adi" optionvalue="ot_oda_id" required="" data-msg-required="Bu alan zorunludur ." dmx-bind:value="params.odatipid">
+                                                <option value="">Seçiniz...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gx-3">
+
+                                    <div class="col">
+                                        <div class="form-group mb-3">
+                                            <label for="inp_oe_oda_tip_id1">Ekran ID(*)</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon11">
+                                                    <i class="ti ti-123"></i>
+                                                </span>
+                                                <input id="inp_oeo_device_no" type="text" class="form-control" placeholder="Üretici Numarası " aria-label="EkranID" aria-describedby="basic-addon11" name="oeo_device_no" required="" data-msg-required="Bu alan zorunludur." dmx-bind:value="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_device_no">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="inp_oeo_tarih_saat">Ekran IP(*)</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon_0">
+                                                <i class="ti ti-network"></i>
+                                            </span>
+                                            <input type="text" class="form-control" placeholder="Ekran IP" aria-label="Username" aria-describedby="basic-addon_0" id="inp_oeo_ekran_ip" name="oeo_ekran_ip" required="" data-msg-required="Bu alan zorunludur." data-rule-ipv4="" data-msg-ipv4="Lütfen geçerli bir IP adresi giriniz." dmx-bind:value="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_ekran_ip">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="mt-4 mb-4">2. Ekran Özellikleri</h5>
+                                        <div class="container-fluid ps-0 pe-0">
+                                            <div class="row">
+                                                <div class="col-12 mb-2">
+                                                    <div class="form-check custom-option custom-option-basic" dmx-class:checked="inp_oeo_hava_durumu.checked?true:false">
+                                                        <label class="form-check-label custom-option-content" for="inp_oeo_hava_durumu">
+                                                            <input class="form-check-input" type="checkbox" id="inp_oeo_hava_durumu" checked="" name="oeo_hava_durumu" dmx-bind:value="checked ? 1:0" dmx-bind:checked="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_hava_durumu == 1 ? true : false"> <span class="custom-option-header"> <span class="h6 mb-0">Hava Durumu </span> <span class="text-muted"> {{inp_oeo_hava_durumu.checked ? 'Evet' : 'Hayır'}} </span> </span> <span class="custom-option-body"> <small class="option-text text-align-s">Ekranda küçük bir alan içerisinde hava durumunu göstermek istermisiniz ?</small> </span></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <div class="form-check custom-option custom-option-basic" dmx-class:checked="inp_oeo_tarih_saat.checked?true:false">
+                                                        <label class="form-check-label custom-option-content" for="inp_oeo_tarih_saat">
+                                                            <input class="form-check-input" type="checkbox" id="inp_oeo_tarih_saat" name="oeo_tarih_saat" dmx-bind:value="checked?1:0" dmx-bind:checked="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_tarih_saat==1?true:false">
+                                                            <span class="custom-option-header">
+                                                                <span class="h6 mb-0">Tarih ve Saat</span>
+                                                                <span class="text-muted">
+                                                                    {{inp_oeo_tarih_saat.checked ? 'Evet' : 'Hayır'}}
+                                                                </span>
+                                                            </span>
+                                                            <span class="custom-option-body">
+                                                                <small class="option-text text-align-s">Ekranda küçük bir alan içerisinde tarihi ve saati göstermek istermisiniz ?</small>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <div class="form-check custom-option custom-option-basic" dmx-class:checked="inp_oeo_durum.checked?true:false">
+                                                        <label class="form-check-label custom-option-content" for="inp_oeo_durum">
+                                                            <input class="form-check-input" type="checkbox" value="" id="inp_oeo_durum" checked="" name="oeo_durum" dmx-bind:value="checked ? 1:0" dmx-bind:checked="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_durum==1?true:false">
+                                                            <span class="custom-option-header">
+                                                                <span class="h6 mb-0">Oda Durum Bilgisi </span>
+                                                                <span class="text-muted">{{inp_oeo_durum.checked ? 'Evet' : 'Hayır'}}</span>
+                                                            </span>
+                                                            <span class="custom-option-body">
+                                                                <small class="option-text text-align-s">Oda sahibi müsait durumunu oda ekranında gösterebilir mi?</small>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <div class="form-check custom-option custom-option-basic" dmx-class:checked="inp_oeo_ad_soyad_bilgisi.checked?true:false">
+                                                        <label class="form-check-label custom-option-content" for="inp_oeo_ad_soyad_bilgisi">
+                                                            <input class="form-check-input" type="checkbox" id="inp_oeo_ad_soyad_bilgisi" name="oeo_ad_soyad_bilgisi" dmx-bind:value="checked ?1:0" dmx-bind:checked="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_ad_soyad_bilgisi==1?true:false">
+                                                            <span class="custom-option-header">
+                                                                <span class="h6 mb-0">Ad Soyad Bilgisi </span> <span class="text-muted">{{inp_oeo_ad_soyad_bilgisi.checked ? 'Evet' : 'Hayır'}}</span>
+                                                            </span>
+                                                            <span class="custom-option-body">
+                                                                <small class="option-text text-align-s">Oda sahibinin ad soyad bilgisi gösterilsin mi?</small> </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <div class="form-check custom-option custom-option-basic" dmx-class:checked="inp_oeo_unvan_goster.checked?true:false">
+                                                        <label class="form-check-label custom-option-content" for="inp_oeo_unvan_goster">
+                                                            <input class="form-check-input" type="checkbox" id="inp_oeo_unvan_goster" dmx-bind:checked="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_unvan_goster==1?true:false" name="oeo_unvan_goster" dmx-bind:value="checked ? 1 : 0">
+                                                            <span class="custom-option-header">
+                                                                <span class="h6 mb-0">Ünvan Göster</span>
+                                                                <span class="text-muted">{{inp_oeo_unvan_goster.checked ? 'Evet' : 'Hayır'}}</span>
+                                                            </span>
+                                                            <span class="custom-option-body">
+                                                                <small class="option-text text-align-s">Oda sahibinin ünvanı gösterilsin mi?</small>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <div class="form-check custom-option custom-option-basic" dmx-class:checked="inp_oeo_oda_adi_goster.checked?true:false">
+                                                        <label class="form-check-label custom-option-content" for="inp_oeo_oda_adi_goster">
+                                                            <input class="form-check-input" type="checkbox" id="inp_oeo_oda_adi_goster" dmx-bind:checked="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_oda_adi_goster==1?true:false" name="oeo_oda_adi_goster" dmx-bind:value="checked?1:0">
+                                                            <span class="custom-option-header">
+                                                                <span class="h6 mb-0">Oda Adını Göster</span>
+                                                                <span class="text-muted">{{inp_oeo_oda_adi_goster.checked ? 'Evet' : 'Hayır'}}</span>
+                                                            </span>
+                                                            <span class="custom-option-body">
+                                                                <small class="option-text text-align-s">Oda adı gösterilsin mi?</small>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mb-2">
+                                                    <div class="form-check custom-option custom-option-basic" dmx-class:checked="inp_oeo_kurum_logo.checked?true:false">
+                                                        <label class="form-check-label custom-option-content" for="inp_oeo_kurum_logo">
+                                                            <input class="form-check-input" type="checkbox" id="inp_oeo_kurum_logo" dmx-bind:checked="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_kurum_logo==1?true:false" name="oeo_kurum_logo" dmx-bind:value="checked?1:0">
+                                                            <span class="custom-option-header">
+                                                                <span class="h6 mb-0">Kurum Amblem Gösterilsin mi ?</span>
+                                                                <span class="text-muted">{{inp_oeo_kurum_logo.checked ? 'Evet' : 'Hayır'}}</span>
+                                                            </span>
+                                                            <span class="custom-option-body">
+                                                                <small class="option-text text-align-s">Oda ekranın da kurum amblemi gösterilsin mi ?</small>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5 class="mt-4 mb-4">3. Ekran Renk Tercihi</h5>
+                                        <ul class="list-group">
+                                            <div class="form-group mb-3" id="input1_group" is="dmx-radio-group">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center" dmx-repeat:repeat1="scRenkler.data.query">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" value="" dmx-bind:id="'renk_'+$index" name="oeo_ekran_renk_id" dmx-bind:value="oer_id" dmx-bind:checked="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_ekran_renk_id">
+                                                        <label class="form-check-label" dmx-bind:for="'renk_'+$index">{{oer_ad}}</label>
+                                                    </div>
+                                                    <div dmx-bind:class="'rounded-rectangle'+' '+oer_class"></div>
+                                                </li>
+                                            </div>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row gx-3 mt-4">
+                                    <div class="col-12 text-center">
+                                        <div class="form-group mb-3">
+                                            <button type="submit" class="btn btn-primary" dmx-bind:disabled="state.executing">Güncelle <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
+                                            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
+                                                İptal
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="navTabs1_2" role="tabpanel">
+                            <p>-------</p>
+                        </div>
+                        <div class="tab-pane fade" id="navTabs1_3" role="tabpanel">
+                            <p>-------</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ User Content -->
+    </div>
+</div>

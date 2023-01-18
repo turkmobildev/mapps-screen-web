@@ -57,7 +57,7 @@
       "mySQL_password": "ubiYDBj9"
     }
   ],
-  "activeTarget": "Development",
+  "activeTarget": "Production",
   "useRouting": true,
   "addBase": true,
   "routingHandler": "apache",

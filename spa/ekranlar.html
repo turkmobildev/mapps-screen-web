@@ -1,6 +1,11 @@
-<!-- Wappler include head-page="../index.html" appconnect="local" is="dmx-app" bootstrap5="custom" components="{dmxBootstrap5Alert:{},dmxFormatter:{},dmxBrowser:{}}" id="ekranlar"-->
+<!-- Wappler include head-page="../index.html" appconnect="local" is="dmx-app" bootstrap5="custom" components="{dmxBootstrap5Alert:{},dmxFormatter:{},dmxBrowser:{},dmxValidator:{}}" id="ekranlar"-->
+<dmx-serverconnect id="scKurumYerleskeOdalar" url="../dmxConnect/api/Yerleskeler_oda/yerleskeler_oda_liste.php"></dmx-serverconnect>
+<dmx-serverconnect id="scYerleskeListesi" url="../dmxConnect/api/Yerleskeler/yerleske_liste.php"></dmx-serverconnect>
 <div is="dmx-browser" id="browserEkranlar"></div>
 <dmx-serverconnect id="scEkranListesi" url="../dmxConnect/api/ekranlar/ekran_liste.php"></dmx-serverconnect>
+<dmx-serverconnect id="scEkranRenkleri" url="../dmxConnect/api/ekranlar_renkler/renk_listesi.php"></dmx-serverconnect>
+<dmx-serverconnect id="scEkranTipleri" url="../dmxConnect/api/Ekran_Tipleri/ekran_tipleri_liste.php"></dmx-serverconnect>
+<dmx-serverconnect id="odaTipleri" url="../dmxConnect/api/Yerleskeler_Oda_Tipleri/yerleskeler_Oda_Tipleri_liste.php"></dmx-serverconnect>
 <div class="container-xxl flex-grow-1 container-p-y">
   <div class="row">
     <div class="col">
@@ -19,21 +24,82 @@
   </div>
   <!-- Screen Cards -->
   <div class="row g-4">
-    <!-- Custom Option Radio Image -->
+    <div class="col-6">
+      <div class="card mb-4">
+        <h5 class="card-header">Ekran Tanımlama ve Özellikler</h5>
+        <form class="card-body" is="dmx-serverconnect-form" method="post" id="formEkranTanim" action="../dmxConnect/api/oda_ekranlar/oda_ekranlar_ekle.php">
+          <h6>1. Ekran Tanımı (* Zorunlu)</h6>
+          <div class="row g-3">
+            <div class="col-6">
+              <label class="form-label" for="ekranip">Ekran Adı</label>
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon01">
+                  <i class="ti ti-sm ti-device-tv"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Ekran Tanımı" aria-label="ekran_tanimi" aria-describedby="basic-addon11" id="id_ekran_tanimi">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="ekranip">Ekran IP</label>
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon02">
+                  <i class="ti ti-sm ti-network"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="192.168.0.1" aria-describedby="basic-addon02" id="id_e_ip" name="e_ip" required="" data-msg-required="Bu alan zorunludur ." data-rule-ipv4="" data-msg-ipv4="Lütfen geçerli bir IP adresi giriniz.">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="inp_ky_id" class="form-label">Yerleşke</label>
+                <select id="inp_ky_id" class="form-select" name="e_ky_id" dmx-bind:options="scYerleskeListesi.data.queryYerleskeListe" optiontext="yerleske_adi" optionvalue="yerleske_id">
+                  <option value="">Seçiniz...</option>
+                </select>
+                <small id="selectYerleske_id_Help" class="form-text text-muted">Ekranın konumlandırılacağı yerleşke bilgisidir.</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="selectOda_id1" class="form-label">Yerleşkeye Ait Oda Bilgisi</label>
+                <select id="selectOda_id1" class="form-select" name="YerleskeOdaId" dmx-bind:options="scKurumYerleskeOdalar.data.query.where(`yerleske_id`, inp_ky_id.value, '==')" optiontext="kyo_oda_adi+' '+kyo_kat_bilgisi+' '+ot_oda_tip_adi+' '" optionvalue="ot_oda_id">
+                  <option value="">Seçiniz...</option>
+                </select>
+                <small id="selectOda_id_Help2" class="form-text text-muted">Ekranın yerleşke içerisinde kullanılacağı oda tanımıdır.</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="selectEkranTipi_id" class="form-label">Ekran Tipi</label>
+                <select id="selectEkranTipi_id" class="form-select" name="formEkranTipiId" dmx-bind:options="scEkranTipleri.data.queryEkranTipleri" optiontext="et_adi" optionvalue="et_id">
+                  <option value="">Seçiniz...</option>
+                </select>
+                <small id="selectEkranTipi_id_Help" class="form-text text-muted">Ekranın yerleşke içerisinde kullanılacağı oda.</small>
+              </div>
+            </div>
+          </div>
+          <hr class="my-4 mx-n4">
+          <h6>2. Ekran Özellikleri (* Zorunlu)</h6>
+
+          <div class="pt-4">
+            <button type="submit" class="btn btn-primary me-sm-3 me-1 waves-effect waves-light">Kaydet</button>
+            <button type="reset" class="btn btn-label-secondary waves-effect">İptal</button>
+          </div>
+        </form>
+      </div>
+    </div>
     <div class="col-6">
       <div class="card">
-        <h5 class="card-header">Custom Options Radio With Images</h5>
+        <h6 class="card-header">3. Arka Plan Renk Skalası (* Zorunlu)</h6>
         <div class="card-body">
           <div class="row">
-            <div class="col-4">
+            <div class="col-3 mb-3" dmx-repeat:repeat1="scEkranRenkleri.data.query">
               <div class="form-check custom-option custom-option-icon">
-                <label class="form-check-label custom-option-content bg1_show" for="customRadioSvg1">
+                <label dmx-bind:class="'form-check-label custom-option-content '+oer_class" dmx-bind:for="'customRadioSvg'+$index">
                   <span class="custom-option-body">
                     <i class="ti ti-palette ti-xl"></i>
-                    <span class="custom-option-title"> Native App </span>
+                    <span class="custom-option-title"> {{oer_ad}}</span>
                     <small> Cake sugar plum fruitcake I love sweet roll jelly-o. </small>
                   </span>
-                  <input name="customRadioSvg1" class="form-check-input" type="radio" value="" id="customRadioSvg1">
+                  <input name="customRadioSvg" class="form-check-input" type="radio" value="" dmx-bind:id="'customRadioSvg'+$index">
                 </label>
               </div>
             </div>
@@ -41,27 +107,7 @@
         </div>
       </div>
     </div>
-    <div class="col-6">
-      <div class="card">
-        <h5 class="card-header">Custom Options Radio With Images</h5>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-4">
-              <div class="form-check custom-option custom-option-icon">
-                <label class="form-check-label custom-option-content bg1_show" for="customRadioSvg2">
-                  <span class="custom-option-body">
-                    <i class="ti ti-palette ti-xl"></i>
-                    <span class="custom-option-title"> Native App </span>
-                    <small> Cake sugar plum fruitcake I love sweet roll jelly-o. </small>
-                  </span>
-                  <input name="customRadioSvg2" class="form-check-input" type="radio" value="" id="customRadioSvg2">
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <!-- /Custom Option Radio Image -->
   </div>
   <!--/ Screen Cards -->

@@ -1,0 +1,133 @@
+<!-- Wappler include head-page="../index.html" appConnect="local" is="dmx-app" bootstrap5="local" jquery_35="cdn" moment_2="local with locales" components="{dmxCalendar:{},dmxDatePicker:{},dmxFormatter:{},dmxBootstrap5Modal:{},dmxBootstrap5Alert:{},dmxNotifications:{}}" -->
+<dmx-notifications id="notifiesToplantilar" timeout="7000"></dmx-notifications>
+<dmx-serverconnect id="scToplantilar" url="../dmxConnect/api/toplantilar/toplanti_listesi.php" dmx-param:oda_id="formToplantiEkle.select2.value"></dmx-serverconnect>
+<dmx-serverconnect id="scYerleskeler" url="../dmxConnect/api/toplantilar/toplanti_odalar_listesi.php"></dmx-serverconnect>
+<dmx-value id="var1Baslangic"></dmx-value>
+<dmx-value id="var1Bitis"></dmx-value>
+<dmx-value id="var1Konu"></dmx-value>
+<dmx-value id="var1Oda"></dmx-value>
+<div class="modal fade" id="modalToplantiDuzenle" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-simple" role="document">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3 class="mb-2"><i class="ti ti-trash ti-lg"></i></h3>
+                    <h3 class="mb-2">Toplantı kaydını siliyorsunuz !</h3>
+                    <p class="text-muted">{{var1Konu.value}} konulu toplantı kaydını silmek istediğinize emin misiniz ?</p>
+                    <form is="dmx-serverconnect-form" method="post" id="formToplantiSil"></form>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-danger">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Toplantı Odası İşlemleri /</span> </h4>
+
+        <div class="card app-calendar-wrapper">
+            <div class="row g-0">
+                <!-- Calendar Sidebar -->
+                <div class="col-3 app-calendar-sidebar" id="app-calendar-sidebar">
+                    <form is="dmx-serverconnect-form" id="formToplantiEkle" method="post" action="../dmxConnect/api/toplantilar/toplanti_ekle.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-on:success="scToplantilar.load({oda_id: select2.value});formToplantiEkle.reset(true);calendar1.updateSize();notifiesToplantilar.success('Toplantı başarılı şekilde eklendi !')" dmx-on:error="notifiesToplantilar.info('Belirtilen tarihler arasında toplantı mevcut olduğu için toplantı eklenememiştir. Lütfen farklı bir tarih saat aralığı seçerek tekrar deneyiniz.')">
+                        <div class="row">
+                            <div class="col mt-3 ms-3 me-3">
+                                <div class="form-group mb-3">
+                                    <label for="select1">Yerleşke</label>
+                                    <select id="select1" class="form-select" dmx-bind:options="scYerleskeler.data.queryYerleskeler" optiontext="yerleske_adi" optionvalue="yerleske_id">
+                                        <option value="">Seçiniz...</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mt-3 ms-3 me-3">
+                                <div class="form-group mb-3">
+                                    <label for="select2">Toplantı Odası</label>
+                                    <select id="select2" class="form-select" dmx-bind:options="scYerleskeler.data.queryOdalar.where(`kyo_yerleske_id`, select1.value, '==')" optiontext="kyo_oda_adi+' '+kyo_kat_bilgisi+' '+'Toplantı Odası'" optionvalue="kyo_id" name="t_oda_id">
+                                        <option value="">Seçiniz..</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col mt-3 ms-3 me-3">
+                                <div class="form-group mb-3">
+                                    <label for="inp_t_konu">Konu</label>
+                                    <input type="text" class="form-control" id="inp_t_konu" name="t_konu" aria-describedby="inp_t_konu_help" placeholder="Toplantı Konusu">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row gx-3">
+
+                            <div class="col mt-3 ms-3 me-3">
+                                <div class="form-group mb-3">
+                                    <label for="inp_t_baslangic">Başlangıç</label>
+                                    <input type="text" class="form-control" id="inp_t_baslangic" name="t_baslangic" aria-describedby="inp_t_baslangic_help" placeholder="Toplantı başlangıç tarihi" is="dmx-date-picker" disableweekends="true" timepicker="" minutes-increment="10" use24hours="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3">
+
+                            <div class="col mt-3 ms-3 me-3">
+                                <div class="form-group mb-3">
+                                    <label for="inp_t_bitis">Bitiş</label>
+                                    <input type="text" class="form-control" id="inp_t_bitis" name="t_bitis" aria-describedby="inp_t_bitis_help" placeholder="Toplantı bitiş tarihi" is="dmx-date-picker" timepicker="" minutes-increment="10" disableweekends="true" use24hours="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-3">
+                            <div class="col mt-3 mb-3 ms-3 me-3">
+                                <div class="form-group mb-3">
+                                    <button type="submit" class="btn btn-primary w-100" dmx-bind:disabled="state.executing">
+
+                                        <i class="ti ti-sm ti-plus"></i>
+                                        Kaydet <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="border-bottom p-4 my-sm-0 mb-3">
+                        <div class="d-grid">
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <!-- inline calendar (flatpicker) -->
+
+                    </div>
+                </div>
+                <!-- /Calendar Sidebar -->
+
+                <!-- Calendar & Modal -->
+                <div class="col app-calendar-content">
+                    <div class="card shadow-none border-0">
+                        <div class="card-body pb-0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h1>{{formToplantiEkle.select2.selectedIndex > 0 ? formToplantiEkle.select2.selectedText : 'Toplantı Odasını Belirtiniz !'}}</h1>
+                                    </div>
+                                    <div class="col-12">
+                                        <dmx-calendar id="calendar1" views="dayGridMonth,dayGridWeek,dayGridDay,listDay" locale="tr" business-hours="true" no-event-overlap="true" constraint.business-hours="" view="listDay" now-indicator="true" dmx-on:eventclick="modalToplantiDuzenle.show();var1Baslangic.setValue($event.event.start);var1Bitis.setValue($event.event.end);var1Konu.setValue($event.event.title)">
+                                            <dmx-calendar-source id="source1" color="#1473c7" text-color="#fffbfb" dmx-bind:events="scToplantilar.data.queryToplantilar" event-id="t_id" event-title="t_konu" event-start="t_baslangic" event-end="t_bitis" event-all-day="t_tum_gun" event-url="'javascript:void(0)'"></dmx-calendar-source>
+                                        </dmx-calendar>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
