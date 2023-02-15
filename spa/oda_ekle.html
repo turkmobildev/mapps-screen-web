@@ -1,4 +1,5 @@
 <!-- Wappler include head-page="../index.html" appConnect="local" is="dmx-app" bootstrap5="local" jquery_35="cdn" moment_2="local with locales" components="{dmxFormRepeat:{},dmxBrowser:{}}" -->
+<dmx-serverconnect id="scDropdowns" url="../dmxConnect/api/mobil/DropDowns/tumBilgiler.php"></dmx-serverconnect>
 <dmx-serverconnect id="scEkranTipleri" url="../dmxConnect/api/Ekran_Tipleri/ekran_tipleri_liste.php"></dmx-serverconnect>
 <dmx-serverconnect id="scOdaTipleri" url="../dmxConnect/api/Yerleskeler_Oda_Tipleri/yerleskeler_Oda_Tipleri_liste.php"></dmx-serverconnect>
 <div is="dmx-browser" id="browserOdaEkle"></div>
@@ -14,19 +15,21 @@
                                 <form is="dmx-serverconnect-form" id="formOdaEkle" method="post" action="../dmxConnect/api/Yerleskeler_oda/yerleskeler_oda_ekle.php" dmx-generator="bootstrap5" dmx-form-type="vertical">
                                     <input type="hidden" name="kyo_yerleske_id" id="inp_kyo_yerleske_id" dmx-bind:value="params.yerleskeid">
                                     <div class="row gx-3">
-                                        <div class="col">
+                                        <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12 col-sm-6">
                                             <div class="form-group mb-3">
                                                 <label for="inp_kyo_kat_bilgisi">Kat</label>
-                                                <input type="text" class="form-control" id="inp_kyo_kat_bilgisi" name="kyo_kat_bilgisi" aria-describedby="inp_kyo_kat_bilgisi_help" placeholder="Kat bilgisini giriniz">
+                                                <select id="inp_kyo_kat_bilgisi" class="form-select" name="kyo_kat_bilgisi" dmx-bind:options="scDropdowns.data.queryKatBilgisi" optiontext="kat" optionvalue="kat">
+                                                    <option value="">Seçiniz...</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12 col-sm-6">
                                             <div class="form-group mb-3">
                                                 <label for="inp_kyo_oda_adi">Oda Adı</label>
                                                 <input type="text" class="form-control" id="inp_kyo_oda_adi" name="kyo_oda_adi" aria-describedby="inp_kyo_oda_adi_help" placeholder="Oda adını giriniz...">
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-md-4 col-lg-3 col-xl-4 col-xxl-4 col-12 col-sm-6">
                                             <div class="form-group mb-3">
                                                 <label for="inp_kyo_oda_tip">Oda Tipi</label>
                                                 <select id="inp_kyo_oda_tip" class="form-select" name="kyo_oda_tip" dmx-bind:options="scOdaTipleri.data.query" optiontext="ot_oda_tip_adi" optionvalue="ot_oda_id">
@@ -37,7 +40,7 @@
                                         </div>
                                     </div>
                                     <div class="row gx-3">
-                                        <div class="col">
+                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12">
                                             <div class="form-group mb-3">
                                                 <label for="inp_kyo_ekran_tipi">Ekran Tipi</label>
                                                 <select id="inp_kyo_ekran_tipi" class="form-select" name="kyo_ekran_tipi" dmx-bind:options="scEkranTipleri.data.queryEkranTipleri" optiontext="et_adi" optionvalue="et_id">
@@ -46,7 +49,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12">
                                             <div class="form-group mb-3">
                                                 <label for="inp_kyo_birim_adi">Birim Adı</label>
                                                 <input type="text" class="form-control" id="inp_kyo_birim_adi" name="kyo_birim_adi" aria-describedby="inp_kyo_birim_adi_help" placeholder="Birim Adı">
@@ -54,13 +57,13 @@
                                         </div>
                                     </div>
                                     <div class="row gx-3">
-                                        <div class="col">
+                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12">
                                             <div class="form-group mb-3">
                                                 <label for="inp_kyo_unvan">Ünvan</label>
                                                 <input type="text" class="form-control" id="inp_kyo_unvan" name="kyo_unvan" aria-describedby="inp_kyo_unvan_help" placeholder="Yetkili Ünvanı">
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 col-12">
                                             <div class="form-group mb-3">
                                                 <label for="inp_kyo_kisi_ad_soyad">Ad Soyad</label>
                                                 <input type="text" class="form-control" id="inp_kyo_kisi_ad_soyad" name="kyo_kisi_ad_soyad" aria-describedby="inp_kyo_kisi_ad_soyad_help" placeholder="Yetkilinin Ad Soyad Bilgisi">

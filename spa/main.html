@@ -157,12 +157,10 @@
     <div class="col mb-lg-0">
       <div class="card h-100">
         <div class="card-body">
-
-
           <div class="alert mt-2 mb-2 ms-2 me-2" id="alertKullaniciYok" is="dmx-bs5-alert" role="alert" type="danger" dmx-bind:show="!scKullanicilar.data.queryKullanicilar.data.hasItems()">
             <p>Henüz kayıtlı bir kullanıcı bulunmamaktadır. !</p>
           </div>
-          <table class="table table-hover">
+          <table class="table table-hover" dmx-show="scKullanicilar.data.queryKullanicilar.data.count() > 0 ">
             <thead>
               <tr>
                 <th>#</th>
@@ -211,7 +209,7 @@
           <form action="../dmxConnect/api/kullanicilar/kullanici_sil.php" id="kullanici_sil" method="post" is="dmx-serverconnect-form" dmx-on:success="scKullanicilar.load({offset: sessionmainpage.data.offset},true);kullanici_sil.reset(true)">
             <input id="id_kullanici_id_sil_form" name="kullanici_id" type="hidden" class="form-control">
           </form>
-          <div class="row mt-2 ms-2 me-2">
+          <div class="row mt-2 ms-2 me-2" dmx-show="scKullanicilar.data.queryKullanicilar.data.count() > 0 ">
             <ul class="pagination" dmx-populate="scKullanicilar.data.queryKullanicilar" dmx-state="sessionmainpage" dmx-offset="offset" dmx-generator="bs5paging">
               <li class="page-item" dmx-class:disabled="scKullanicilar.data.queryKullanicilar.page.current == 1" aria-label="First">
                 <a href="javascript:void(0)" class="page-link" dmx-on:click="sessionmainpage.set('offset',scKullanicilar.data.queryKullanicilar.page.offset.first)"><span aria-hidden="true">&lsaquo;&lsaquo;</span></a>

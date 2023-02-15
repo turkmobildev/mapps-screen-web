@@ -14,7 +14,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Oda İşlemleri /</span> Yeni Ekran Tanımlayın </h4>
     <div class="row">
-        <div class="col-4">
+        <div class="col-lg-3 col-md-4 col-xl-3 col-xxl-3 col-12">
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="user-avatar-section">
@@ -23,7 +23,7 @@
 
                             <div class="user-info text-center">
                                 <h4 class="mb-2">{{formEkranEkle.inp_oe_oda_tip_id.selectedText}} </h4>
-                                <span class="badge bg-label-secondary mt-1">IP : {{params.odaid}} </span>
+                                <span class="badge bg-label-secondary mt-1">IP : {{scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_ekran_ip}} </span>
                             </div>
                         </div>
                     </div>
@@ -42,41 +42,32 @@
                             <li class="mb-2 pt-1"><span class="fw-semibold me-1">Adı Soyadı:</span>
                                 <span>{{scOdaDetay.data.query.kyo_kisi_ad_soyad}}</span>
                             </li>
-                            <li class="mb-2 pt-1"><span class="fw-semibold me-1">Telefon:</span>
-                                <span></span>
-                            </li>
-                            <li class="mb-2 pt-1"><span class="fw-semibold me-1">Dahili:</span>
-                                <span></span>
-                            </li>
-
                         </ul>
-                        <div class="d-flex justify-content-center">
-                            <a href="javascript:;" class="btn btn-label-danger suspend-user waves-effect">TÜM KAYDI SIFIRLA</a>
-                        </div>
+
                     </div>
                 </div>
             </div>
 
         </div>
         <!-- User Content -->
-        <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+        <div class="col-lg-9 col-md-8 col-xl-9 col-xxl-9 col-12">
             <div class="card">
                 <div class="card-body py-2">
-                    <ul class="nav nav-tabs" id="navTabs1_tabs" role="tablist">
+                    <ul class="nav nav-tabs nav-fill" id="navTabs1_tabs" role="tablist">
                         <li class="nav-item"><a class="nav-link active" id="navTabs1_1_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_1" role="tab" aria-controls="navTabs1_1" aria-selected="true"><i class="ti ti-device-tv me-1 ti-xs"></i> Ekran İşlemleri</a></li>
                         <li class="nav-item"><a class="nav-link" id="navTabs1_2_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_2" role="tab" aria-controls="navTabs1_2" aria-selected="false"><i class="ti ti-xs ti-blockquote me-1"></i> İçerik Detayı</a></li>
                         <li class="nav-item">
                             <a class="nav-link" id="navTabs1_3_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_3" role="tab" aria-controls="navTabs1_3" aria-selected="false"><i class="ti ti-xs me-1 ti-user"></i>Kullanıcı Ayarı</a>
                         </li>
                     </ul>
-                    <div class="tab-content" id="navTabs1_content">
+                    <div class="tab-content p-1" id="navTabs1_content">
                         <div class="tab-pane fade show active" id="navTabs1_1" role="tabpanel">
-                            <form is="dmx-serverconnect-form" id="formEkranEkle" method="post" action="../dmxConnect/api/ekranlar/ekran_ekle_v2.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-on:success="notifies1.success('Ekran ayarlarınız başarılı olarak güncellenmiştir.');formEkranEkle.reset();browser1.goto('./odalar')">
+                            <form is="dmx-serverconnect-form" id="formEkranEkle" method="post" action="../dmxConnect/api/ekranlar/ekran_ekle_v2.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-on:success="notifies1.success('Ekran ayarlarınız başarılı olarak güncellenmiştir.');formEkranEkle.reset();scEkranOzellikleriDetay.load({ekranid: scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_oda_id},true)">
 
                                 <input id="ozellikid" name="ozellikRowId" dmx-bind:value="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_id" type="hidden">
                                 <h5 class="mb-4 mt-4">1. Ekran Tanımlama Bilgileri</h5>
                                 <div class="row gx-3">
-                                    <div class="col">
+                                    <div class="col-12 col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="inp_oe_yerleske_id">Yerleşke (*)</label>
                                             <select id="inp_oe_yerleske_id" class="form-select" name="oe_yerleske_id" dmx-bind:options="scYerleskeler.data.queryYerleskeListe" optiontext="yerleske_adi" optionvalue="yerleske_id" required="" data-msg-required="Bu alan zorunludur." dmx-bind:value="params.yerleskeid" dmx-bind:disabled="scYerleskeler.state.executing">
@@ -84,7 +75,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-12 col-md-3">
                                         <div class="form-group mb-3">
                                             <label for="inp_oda_id">Oda (*)</label>
                                             <select id="inp_oda_id" class="form-select" name="oe_oda_id" dmx-bind:options="scOdalar.data.repeat.where(`kyo_yerleske_id`, inp_oe_yerleske_id.value, '==')" optiontext="kyo_id+' - '+kyo_oda_adi+' - '+kyo_kat_bilgisi" optionvalue="kyo_id" required="" data-msg-required="Bu alan zorunludur." dmx-bind:value="params.ekranid" dmx-bind:disabled="scOdalar.state.executing">
@@ -92,7 +83,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-12 col-md-3">
                                         <label for="inp_oe_oda_tip_id">Oda Tipi (*)</label>
                                         <div class="form-group mb-3">
 
@@ -104,7 +95,7 @@
                                 </div>
                                 <div class="row gx-3">
 
-                                    <div class="col">
+                                    <div class="col-12 col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="inp_oe_oda_tip_id1">Ekran ID(*)</label>
                                             <div class="input-group">
@@ -115,7 +106,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-12 col-md-3">
                                         <label for="inp_oeo_tarih_saat">Ekran IP(*)</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon_0">
@@ -128,7 +119,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-xl-6 col-lg-6 col-sm-6 col-xxl-6 col-12">
                                         <h5 class="mt-4 mb-4">2. Ekran Özellikleri</h5>
                                         <div class="container-fluid ps-0 pe-0">
                                             <div class="row">
@@ -239,10 +230,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-xl-6 col-lg-6 col-sm-6 col-xxl-6 col-12">
                                         <h5 class="mt-4 mb-4">3. Ekran Renk Tercihi</h5>
                                         <ul class="list-group">
-                                            <div class="form-group mb-3" id="input1_group" is="dmx-radio-group">
+                                            <div class="form-group mb-3 rounded-top rounded-bottom" id="input1_group" is="dmx-radio-group">
                                                 <li class="list-group-item d-flex justify-content-between align-items-center" dmx-repeat:repeat1="scRenkler.data.query">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" value="" dmx-bind:id="'renk_'+$index" name="oeo_ekran_renk_id" dmx-bind:value="oer_id" dmx-bind:checked="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_ekran_renk_id == oer_id">
@@ -257,7 +248,7 @@
                                 <div class="row gx-3 mt-4">
                                     <div class="col-12 text-center">
                                         <div class="form-group mb-3">
-                                            <button type="submit" class="btn btn-primary" dmx-bind:disabled="state.executing">Güncelle <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
+                                            <button type="submit" class="btn btn-primary fw-bold" dmx-bind:disabled="state.executing">Güncelle <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
                                             <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">
                                                 İptal
                                             </button>
@@ -271,11 +262,11 @@
                             <h5 class="mt-4 mb-4">İçerik Detayı</h5>
                             <div class="container-fluid ps-0 pe-0">
                                 <div class="row">
-                                    <div class="col-8">
+                                    <div class="col-12">
                                         <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="../dmxConnect/api/EkranOzellikleri/ekranOzellikleri_bilgi_guncelle.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-populate="scOdaDetay.data.query">
                                             <input type="hidden" name="kyo_id" id="inp_kyo_id" dmx-bind:value="scOdaDetay.data.query.kyo_id">
                                             <div class="row gx-3">
-                                                <div class="align-self-center col-8">
+                                                <div class="col-xl-6 col-xxl-6 col-lg-6 col-md-6 col-sm-4 col-12">
                                                     <div class="form-group mb-3 col">
                                                         <label for="inp_kyo_oda_adi">Oda Adı</label>
                                                         <div class="input-group input-group-merge">
@@ -287,7 +278,7 @@
 
 
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-xl-3 col-xxl-3 col-lg-3 col-md-3 col-sm-4 col-6">
                                                     <div class="form-group mb-3 col">
                                                         <label for="selectFontSizeOdaAdi" class="form-label">Font Boyu</label>
                                                         <select id="selectFontSizeOdaAdi" class="form-select" name="selectFontSizeOdaAdi" dmx-bind:value="scOdaDetay.data.query.selectFontSizeOdaAdi">
@@ -305,7 +296,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-xl-3 col-xxl-3 col-lg-3 col-md-3 col-sm-4 col-6">
                                                     <div class="form-group mb-3 col">
                                                         <label for="selectRenkOdaAdi" class="form-label">Renk</label>
                                                         <select id="selectRenkOdaAdi" class="form-select" name="selectRenkOdaAdi" dmx-bind:value="scOdaDetay.data.query.selectRenkOdaAdi">
@@ -319,7 +310,7 @@
 
                                             </div>
                                             <div class="row gx-3">
-                                                <div class="col-8">
+                                                <div class="undefined-NaN col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-6 col-sm-4">
                                                     <div class="form-group mb-3">
                                                         <label for="inp_kyo_birim_adi">Birim Adı</label>
                                                         <div class="input-group input-group-merge">
@@ -328,7 +319,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-6 col-xl-3 col-xxl-3 col-lg-3 col-md-3 col-sm-4">
                                                     <div class="form-group mb-3 col">
                                                         <label for="selectFontSizeBirimAdi" class="form-label">Font Boyu</label>
                                                         <select id="selectFontSizeBirimAdi" class="form-select" name="selectFontSizeBirimAdi" dmx-bind:value="scOdaDetay.data.query.selectFontSizeBirimAdi">
@@ -345,7 +336,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-6 col-xl-3 col-xxl-3 col-lg-3 col-md-3 col-sm-4">
                                                     <div class="form-group mb-3 col">
                                                         <label for="selectRenkBirimAdi" class="form-label">Renk</label>
                                                         <select id="selectRenkBirimAdi" class="form-select" name="selectRenkBirimAdi" dmx-bind:value="scOdaDetay.data.query.selectRenkBirimAdi">
@@ -359,7 +350,7 @@
 
                                             </div>
                                             <div class="row gx-3">
-                                                <div class="col-8">
+                                                <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-6 col-sm-4">
                                                     <div class="form-group mb-3">
                                                         <label for="inp_kyo_unvan">Ünvan</label>
                                                         <div class="input-group input-group-merge">
@@ -368,7 +359,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-6 col-xl-3 col-xxl-3 col-lg-3 col-md-3 col-sm-4">
                                                     <div class="form-group mb-3 col">
                                                         <label for="selectFontSizeUnvan" class="form-label">Font Boyu</label>
                                                         <select id="selectFontSizeUnvan" class="form-select" name="selectFontSizeUnvan" dmx-bind:value="scOdaDetay.data.query.selectFontSizeUnvan">
@@ -385,7 +376,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-6 col-xl-3 col-xxl-3 col-lg-3 col-md-3 col-sm-4">
                                                     <div class="form-group mb-3 col">
                                                         <label for="selectRenkUnvan" class="form-label">Renk</label>
                                                         <select id="selectRenkUnvan" class="form-select" name="selectRenkUnvan" dmx-bind:value="scOdaDetay.data.query.selectRenkUnvan">
@@ -398,16 +389,16 @@
 
                                             </div>
                                             <div class="row gx-3">
-                                                <div class="col-8">
+                                                <div class="col-12 col-xl-6 col-xxl-6 col-lg-6 col-md-6 col-sm-4">
                                                     <div class="form-group mb-3">
                                                         <label for="inp_kyo_kisi_ad_soyad">Ad Soyad</label>
                                                         <div class="input-group input-group-merge">
                                                             <span id="basic-icon-default-inp_kyo_kisi_ad_soyad" class="input-group-text"><i class="ti ti-user"></i></span>
-                                                            <input type="text" class="form-control" id="inp_kyo_kisi_ad_soyad" name="kyo_kisi_ad_soyad" dmx-bind:value="scOdaDetay.data.query.kyo_kisi_ad_soyad" aria-describedby="inp_kyo_kisi_ad_soyad_help" placeholder="Enter Ad Soyad">
+                                                            <input type="text" class="form-control" id="inp_kyo_kisi_ad_soyad" name="kyo_kisi_ad_soyad" dmx-bind:value="scOdaDetay.data.query.kyo_kisi_ad_soyad" aria-describedby="inp_kyo_kisi_ad_soyad_help" placeholder="Ad Soyad">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-6 col-xl-3 col-xxl-3 col-lg-3 col-md-3 col-sm-4">
                                                     <div class="form-group mb-3 col">
                                                         <label for="selectFontSizeAdSoyad" class="form-label">Font Boyu</label>
                                                         <select id="selectFontSizeAdSoyad" class="form-select" name="selectFontSizeAdSoyad" dmx-bind:value="scOdaDetay.data.query.selectFontSizeAdSoyad">
@@ -424,7 +415,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-6 col-xl-3 col-xxl-3 col-lg-3 col-md-3 col-sm-4">
                                                     <div class="form-group mb-3 col">
                                                         <label for="selectRenkAdSoyad" class="form-label">Renk</label>
                                                         <select id="selectRenkAdSoyad" class="form-select" name="selectRenkAdSoyad" dmx-bind:value="scOdaDetay.data.query.selectRenkAdSoyad">
@@ -435,9 +426,9 @@
                                                 </div>
                                             </div>
                                             <div class="row gx-3">
-                                                <div class="col">
+                                                <div class="col-12 text-center">
                                                     <div class="form-group mb-3">
-                                                        <button type="submit" class="btn btn-primary" dmx-bind:value="scOdaDetay.data.query.Save" dmx-bind:disabled="state.executing">Güncelle <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
+                                                        <button type="submit" class="btn btn-primary fw-bold" dmx-bind:value="scOdaDetay.data.query.Save" dmx-bind:disabled="state.executing">Güncelle <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -458,19 +449,19 @@
                                 <form is="dmx-serverconnect-form" id="formKullaniciEkle" method="post" action="../dmxConnect/api/kullanicilar/kullanici_ekle_bireysel.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-on:success="notifies2.success('Kullanıcı başarılı olarak eklendi.');scEkranKullanicilari.load({ekranid: params.ekranid});formKullaniciEkle.reset(true)">
                                     <input type="hidden" dmx-bind:value="params.ekranid" name="okk_ekranlar_id" id="inp_okk_ekranlar_id">
                                     <div class="row gx-3">
-                                        <div class="col">
+                                        <div class="col-xl-4 col-12 col-sm-12 col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="inp_ok_ad_soyad">Ad Soyad (*)</label>
                                                 <input type="text" class="form-control" id="inp_ok_ad_soyad" name="ok_ad_soyad" aria-describedby="inp_ok_ad_soyad_help" placeholder="Ad Soyad" required="" data-msg-required="Bu alan zorunludur ." dmx-bind:value="scKullaniciDetayi.data.query.ok_ad_soyad" dmx-bind:disabled="scKullaniciDetayi.state.executing">
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-xl-4 col-12 col-sm-12 col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="inp_ok_telefon">Telefon (*)</label>
                                                 <input type="text" class="form-control" id="inp_ok_telefon" name="ok_telefon" aria-describedby="inp_ok_telefon_help" placeholder="90xxxxxxxxxx" dmx-bind:value="scKullaniciDetayi.data.query.ok_telefon" dmx-bind:disabled="scKullaniciDetayi.state.executing" required="" data-rule-pattern="^90\d{10}$" data-msg-pattern="Sadece GSM numarası kabul ediliyor.">
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-xl-4 col-12 col-sm-12 col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="inp_ok_eposta">E-Posta</label>
                                                 <input type="email" class="form-control" id="inp_ok_eposta" name="ok_eposta" aria-describedby="inp_ok_eposta_help" placeholder="E-Posta" dmx-bind:value="scKullaniciDetayi.data.query.ok_eposta" dmx-bind:disabled="scKullaniciDetayi.state.executing">
@@ -478,13 +469,13 @@
                                         </div>
                                     </div>
                                     <div class="row gx-3">
-                                        <div class="col">
+                                        <div class="col-xl-4 col-12 col-sm-12 col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="inp_ok_sifre">Şifre (*)</label>
                                                 <input type="password" class="form-control" id="inp_ok_sifre" name="ok_sifre" aria-describedby="inp_ok_sifre_help" placeholder="Şifre" required="" data-msg-required="Bu alan zorunludur ." dmx-bind:disabled="scKullaniciDetayi.state.executing" data-rule-pattern="^(?=.*[A-Z])[a-zA-Z0-9]{8,}$" data-msg-pattern="Yanlış format">
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-xl-4 col-12 col-sm-12 col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="inp_ok_tip">Kullanıcı Tipi</label>
                                                 <select id="inp_ok_tip" class="form-select" name="ok_tip" dmx-bind:value="scKullaniciDetayi.data.query.ok_tip" dmx-bind:disabled="scKullaniciDetayi.state.executing">
@@ -494,7 +485,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col-xl-4 col-12 col-sm-12 col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="inp_ok_durum">Durum</label>
                                                 <select id="inp_ok_durum" class="form-select" name="ok_durum" dmx-bind:value="scKullaniciDetayi.data.query.ok_durum" dmx-bind:disabled="scKullaniciDetayi.state.executing">
@@ -506,9 +497,9 @@
                                         </div>
                                     </div>
                                     <div class="row gx-3">
-                                        <div class="col">
+                                        <div class="col-12 text-center">
                                             <div class="form-group mb-3">
-                                                <button type="submit" class="btn btn-primary" dmx-bind:disabled="state.executing">Ekle <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
+                                                <button type="submit" class="btn btn-primary fw-bold" dmx-bind:disabled="state.executing">Ekle <span class="spinner-border spinner-border-sm" role="status" dmx-show="state.executing"></span></button>
                                             </div>
                                         </div>
                                     </div>

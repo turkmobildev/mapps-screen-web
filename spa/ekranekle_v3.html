@@ -74,7 +74,7 @@
                     </ul>
                     <div class="tab-content" id="navTabs1_content">
                         <div class="tab-pane fade show active" id="navTabs1_1" role="tabpanel">
-                            <form is="dmx-serverconnect-form" id="formEkranEkle" method="post" action="../dmxConnect/api/ekranlar/ekran_ekle_v2.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-on:success="notifies1.success('Ekran ayarlarınız başarılı olarak güncellenmiştir.');formEkranEkle.reset();browserEkranEkle.goto('./odalar')">
+                            <form is="dmx-serverconnect-form" id="formEkranEkle" method="post" action="../dmxConnect/api/ekranlar/ekran_ekle_v2.php" dmx-generator="bootstrap5" dmx-form-type="vertical" dmx-on:success="notifies1.success('Ekran ayarlarınız başarılı olarak güncellenmiştir.');formEkranEkle.reset()">
                                 <input id="ozellikid" name="ozellikRowId" dmx-bind:value="scEkranOzellikleriDetay.data.queryEkranOzellikleri.oeo_id" type="hidden">
                                 <h5 class="mb-4 mt-4">1. Ekran Tanımlama Bilgileri</h5>
                                 <div class="row gx-3">

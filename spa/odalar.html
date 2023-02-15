@@ -167,10 +167,6 @@
             </h4>
         </div>
         <div class="d-block">
-            <button id="btnEkranEkle" class="btn btn-primary" dmx-on:click="ekranEkle.show()">
-                <i class="ti ti-device-tv"></i> Ekran Ekle</button>
-            <button id="btnOdaEkle" class="btn btn-primary" dmx-on:click="modalEkranEkle.show()">
-                <i class="ti ti-door"></i> Oda Ekle</button>
         </div>
     </div>
     <div class="row">
@@ -180,51 +176,53 @@
             </form>
             <div class="card">
                 <div class="card-body py-2">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>YERLEŞKE</th>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="d-none d-lg-table-cell">#</th>
+                                    <th class="d-none d-lg-table-cell">YERLEŞKE</th>
 
-                                <th>ODA TİPİ</th>
-                                <th>UNVAN</th>
-                                <th>AD SOYAD</th>
-                                <th>BİRİM</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scYerleskelerVeOdalar.data.repeat" id="tableRepeat2">
-                            <tr>
-                                <td>{{$index+1}}</td>
-                                <td class="text-truncate">
-                                    <div class="d-flex justify-content-start align-items-center user-name">
-                                        <div class="d-flex flex-column">
-                                            {{yerleske_adi}}
-                                            <small class="text-muted">{{kyo_kat_bilgisi}}</small>
+                                    <th class="d-none d-lg-table-cell">ODA TİPİ</th>
+                                    <th>UNVAN</th>
+                                    <th>AD SOYAD</th>
+                                    <th>BİRİM</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scYerleskelerVeOdalar.data.repeat" id="tableRepeat2">
+                                <tr>
+                                    <td class="d-none d-lg-table-cell">{{$index+1}}</td>
+                                    <td class="text-truncate d-none d-lg-table-cell">
+                                        <div class="d-flex justify-content-start align-items-center user-name">
+                                            <div class="d-flex flex-column">
+                                                {{yerleske_adi}}
+                                                <small class="text-muted">{{kyo_kat_bilgisi}}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td dmx-text="ot_oda_tip_adi" class="text-truncate"></td>
-                                <td dmx-text="kyo_unvan"></td>
-                                <td>{{kyo_kisi_ad_soyad}}</td>
-                                <td dmx-text="kyo_birim_adi"></td>
-                                <td class="text-end">
-                                    <div class="d-flex justify-content-end align-items-center">
-                                        <div class="d-block">{{queryEkranlar.hasItems()}}<a href="javascript:void(0)" class="text-body" dmx-show="queryEkranlar.hasItems()">
-                                                <i class="ti ti-edit ti-sm me-2" dmx-on:click="browserOdalar.goto('./ekran_detay/'+kyo_yerleske_id+'/'+kyo_id+'/'+tipid)"></i>
-                                            </a></div>
-                                        <div class="d-block"><a href="javascript:void(0)" class="text-body" dmx-show="!queryEkranlar.hasItems()">
-                                                <i class="ti ti-edit ti-sm me-2" dmx-on:click="browserOdalar.goto('./ekran_detay/'+kyo_yerleske_id+'/'+kyo_id+'/'+tipid)"></i>
-                                            </a></div>
-                                        <div class="d-block"><a href="javascript:void(0)" class="text-danger" dmx-on:click="formOdaSil.inp_oe_id.setValue(kyo_id);formOdaSil.submit()">
-                                                <i class="ti ti-trash ti-sm"></i>
-                                            </a></div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    <td dmx-text="ot_oda_tip_adi" class="text-truncate d-none d-lg-table-cell"></td>
+                                    <td dmx-text="kyo_unvan"></td>
+                                    <td>{{kyo_kisi_ad_soyad}}</td>
+                                    <td dmx-text="kyo_birim_adi"></td>
+                                    <td class="text-end">
+                                        <div class="d-flex justify-content-end align-items-center">
+                                            <div class="d-block"><a href="javascript:void(0)" class="text-body" dmx-show="queryEkranlar.hasItems()">
+                                                    <i class="ti ti-edit ti-sm me-2" dmx-on:click="browserOdalar.goto('./ekran_detay/'+kyo_yerleske_id+'/'+kyo_id+'/'+tipid)"></i>
+                                                </a></div>
+                                            <div class="d-block"><a href="javascript:void(0)" class="text-body" dmx-show="!queryEkranlar.hasItems()">
+                                                    <i class="ti ti-edit ti-sm me-2" dmx-on:click="browserOdalar.goto('./ekran_detay/'+kyo_yerleske_id+'/'+kyo_id+'/'+tipid)"></i>
+                                                </a></div>
+                                            <div class="d-block"><a href="javascript:void(0)" class="text-danger" dmx-on:click="formOdaSil.inp_oe_id.setValue(kyo_id);formOdaSil.submit()">
+                                                    <i class="ti ti-trash ti-sm"></i>
+                                                </a></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

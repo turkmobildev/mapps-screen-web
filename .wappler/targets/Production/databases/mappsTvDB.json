@@ -1,101 +1,6 @@
 {
   "schema": {
     "tables": {
-      "oda_kullanicilar": {
-        "db": {
-          "engine": "InnoDB",
-          "schema": "mappstv",
-          "collation": "utf8mb4_general_ci",
-          "system_versioned": false
-        },
-        "columns": {
-          "ok_id": {
-            "db": {
-              "type": "increments",
-              "primary": true,
-              "nullable": false
-            }
-          },
-          "ok_ad_soyad": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 55,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "ok_unvan": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 100,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "ok_telefon": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 12,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "ok_eposta": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 255,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "ok_sifre": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 255,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "ko_foto_url": {
-            "db": {
-              "type": "string",
-              "default": "",
-              "maxLength": 255,
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "ok_tip": {
-            "db": {
-              "type": "integer",
-              "default": "0",
-              "primary": false,
-              "nullable": false
-            }
-          },
-          "ok_olusturulma": {
-            "db": {
-              "type": "datetime",
-              "default": "",
-              "primary": false,
-              "nullable": true
-            }
-          },
-          "ok_durum": {
-            "db": {
-              "type": "integer",
-              "default": "1",
-              "primary": false,
-              "nullable": false
-            }
-          }
-        }
-      },
       "oda_tipleri": {
         "db": {
           "engine": "InnoDB",
@@ -763,6 +668,166 @@
               "default": "0",
               "primary": false,
               "nullable": true
+            }
+          }
+        }
+      },
+      "kurum_kat_bilgileri": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        }
+      },
+      "oda_kullanicilar": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8mb4_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "ok_id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "ok_uuid": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 16,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_ad_soyad": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 55,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_unvan": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 100,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_telefon": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 12,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_eposta": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_sifre": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ko_foto_url": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_tip": {
+            "db": {
+              "type": "integer",
+              "default": "0",
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "ok_olusturulma": {
+            "db": {
+              "type": "datetime",
+              "default": "",
+              "primary": false,
+              "nullable": true
+            }
+          },
+          "ok_durum": {
+            "db": {
+              "type": "integer",
+              "default": "1",
+              "primary": false,
+              "nullable": false
+            }
+          }
+        },
+        "refs": {
+          "tokens": "user_id"
+        }
+      },
+      "tokens": {
+        "db": {
+          "engine": "InnoDB",
+          "schema": "mappstv",
+          "collation": "utf8_general_ci",
+          "system_versioned": false
+        },
+        "columns": {
+          "id": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "user_id": {
+            "db": {
+              "type": "reference",
+              "primary": false,
+              "nullable": false,
+              "references": "ok_id",
+              "inTable": "oda_kullanicilar",
+              "referenceType": "integer",
+              "onUpdate": "RESTRICT",
+              "onDelete": "CASCADE"
+            }
+          },
+          "token": {
+            "db": {
+              "type": "string",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": false
+            }
+          },
+          "created_at": {
+            "db": {
+              "type": "timestamp",
+              "default": "current_timestamp()",
+              "primary": false,
+              "nullable": false
             }
           }
         }

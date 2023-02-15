@@ -1,6 +1,25 @@
 {
   "routes": [
     {
+      "path": "/dropdowns",
+      "url": "/dmxConnect/api/mobil/DropDowns/tumBilgiler.php"
+    },
+    {
+      "path": "/token-yenile",
+      "url": "/dmxConnect/api/mobil/JwtToken/jwtTokenRefresh.php",
+      "method": "post"
+    },
+    {
+      "path": "/token-olustur",
+      "url": "/dmxConnect/api/mobil/JwtToken/jwtTokenGenerate.php",
+      "method": "post"
+    },
+    {
+      "path": "/token-dogrula",
+      "url": "/dmxConnect/api/mobil/JwtToken/jwtTokenVerify.php",
+      "method": "post"
+    },
+    {
       "path": "/monitor",
       "url": "/ekran.html"
     },

@@ -176,48 +176,50 @@
         <div class="col">
             <div class="card h-100">
                 <div class="card-body py-2">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Yerleske Adı</th>
-                                <th>Tanımlı Odalar</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scYerleskelerListe.data.repeat" id="tableRepeat1">
-                            <tr>
-                                <td dmx-text="yerleske_id" class="col-1"></td>
-                                <td class="col-3">
-                                    <span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2">
-                                        <i class="ti ti-home-dot ti-sm"></i>
-                                    </span>
-                                    {{yerleske_adi.uppercase()}}
-                                </td>
-                                <td>
-                                    <span class="badge badge-center rounded-pill  w-px-30 h-px-30 me-2" dmx-class:bg-label-warning="queryOdalar.count() == 0" dmx-class:bg-label-success="queryOdalar.count() > 0">
-                                        <i class="ti ti-door ti-sm"></i>
-                                    </span>
-                                    <span class="badge bg-label-danger" dmx-show="queryOdalar.count() == 0">Henüz Oda Tanımlanmamış!</span>
-                                    <span class="badge bg-label-success" dmx-show="queryOdalar.count() > 0" dmx-on:click="browser1.goto('./odalar')">{{queryOdalar.count()+' Adet oda bulundu'}} </span>
-                                </td>
-                                <td class="text-end col-2">
-                                    <a href="./oda-kayit/{{yerleske_id}}" class="text-body" data-bs-target="#modalOdaEkle" dmx-on:click="browser1.goto('./oda-kayit/'+yerleske_id)">
-                                        <i class="ti ti-home-plus ti-sm me-2"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" class="text-body" dmx-on:click="modalYerleskeGuncelle.formYerleskeGuncelle.inp_yerleske_id.setValue(yerleske_id);modalYerleskeGuncelle.show();modalYerleskeGuncelle.formYerleskeGuncelle.inp_yerleske_adi_guncelle.setValue(yerleske_adi)">
-                                        <i class="ti ti-edit ti-sm me-2"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" class="text-danger" dmx-on:click="formYerleskeSil.inp_yerleske_id_YerleskeSilFrom.setValue(yerleske_id);formYerleskeSil.submit()" dmx-show="!queryOdalar.hasItems()">
-                                        <i class="ti ti-trash ti-sm"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" class="text-body" dmx-show="queryOdalar.hasItems()">
-                                        <i class="ti ti-trash-off ti-sm"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="d-none d-sm-table-cell">#</th>
+                                    <th class="d-none d-sm-table-cell">Yerleske Adı</th>
+                                    <th>Tanımlı Odalar</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="scYerleskelerListe.data.repeat" id="tableRepeat1">
+                                <tr>
+                                    <td dmx-text="yerleske_id" class="col-1 d-none d-sm-table-cell"></td>
+                                    <td class="col-3 d-none d-sm-table-cell">
+                                        <span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2">
+                                            <i class="ti ti-home-dot ti-sm"></i>
+                                        </span>
+                                        {{yerleske_adi.uppercase()}}
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-center rounded-pill  w-px-30 h-px-30 me-2" dmx-class:bg-label-warning="queryOdalar.count() == 0" dmx-class:bg-label-success="queryOdalar.count() > 0">
+                                            <i class="ti ti-door ti-sm"></i>
+                                        </span>
+                                        <span class="badge bg-label-danger" dmx-show="queryOdalar.count() == 0">Henüz Oda Tanımlanmamış!</span>
+                                        <span class="badge bg-label-success" dmx-show="queryOdalar.count() > 0" dmx-on:click="browser1.goto('./odalar')">{{queryOdalar.count()+'oda bulundu'}} </span>
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="./oda-kayit/{{yerleske_id}}" class="text-body" data-bs-target="#modalOdaEkle" dmx-on:click="browser1.goto('./oda-kayit/'+yerleske_id)">
+                                            <i class="ti ti-home-plus ti-sm me-2"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" class="text-body" dmx-on:click="modalYerleskeGuncelle.formYerleskeGuncelle.inp_yerleske_id.setValue(yerleske_id);modalYerleskeGuncelle.show();modalYerleskeGuncelle.formYerleskeGuncelle.inp_yerleske_adi_guncelle.setValue(yerleske_adi)">
+                                            <i class="ti ti-edit ti-sm me-2"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" class="text-danger" dmx-on:click="formYerleskeSil.inp_yerleske_id_YerleskeSilFrom.setValue(yerleske_id);formYerleskeSil.submit()" dmx-show="!queryOdalar.hasItems()">
+                                            <i class="ti ti-trash ti-sm"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" class="text-body" dmx-show="queryOdalar.hasItems()">
+                                            <i class="ti ti-trash-off ti-sm"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="alert" id="alertYerleskelerBos" is="dmx-bs5-alert" role="alert">

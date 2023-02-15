@@ -5,6 +5,17 @@ RewriteEngine On
     Options -MultiViews
 </IfModule>
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?dropdowns(?:/)?$ dmxConnect/api/mobil/DropDowns/tumBilgiler.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^/?token-yenile(?:/)?$ dmxConnect/api/mobil/JwtToken/jwtTokenRefresh.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^/?token-olustur(?:/)?$ dmxConnect/api/mobil/JwtToken/jwtTokenGenerate.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^/?token-dogrula(?:/)?$ dmxConnect/api/mobil/JwtToken/jwtTokenVerify.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^/?monitor(?:/)?$ ekran.html [QSA,NC,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_METHOD} GET
