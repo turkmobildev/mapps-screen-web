@@ -16,7 +16,8 @@ $exports = <<<'JSON'
       "action": "verify",
       "options": {
         "token": "{{$_PARAM.token}}",
-        "key": "netglobal"
+        "key": "netglobal",
+        "throw": true
       },
       "outputType": "text",
       "output": true

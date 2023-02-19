@@ -5,6 +5,11 @@ RewriteEngine On
     Options -MultiViews
 </IfModule>
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?v1/ekran-bilgi(?:/)?$ dmxConnect/api/BilgiEkrani/ekran_mobil.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^/?kullanici-foto-guncelle(?:/)?$ dmxConnect/api/mobil/KullaniciFotoIslemleri/kullanici-profil-foto-yukle.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^/?dropdowns(?:/)?$ dmxConnect/api/mobil/DropDowns/tumBilgiler.php [QSA,NC,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_METHOD} POST
@@ -15,6 +20,23 @@ RewriteRule ^/?token-olustur(?:/)?$ dmxConnect/api/mobil/JwtToken/jwtTokenGenera
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_METHOD} POST
 RewriteRule ^/?token-dogrula(?:/)?$ dmxConnect/api/mobil/JwtToken/jwtTokenVerify.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^/?kullanici-sifre-guncelle(?:/)?$ dmxConnect/api/mobil/KullaniciBilgileri/kullanici_passwd_update.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_METHOD} DELETE
+RewriteRule ^/?kullanici-sil(?:/)?$ dmxConnect/api/mobil/KullaniciBilgileri/kullanici_sil.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_METHOD} GET
+RewriteRule ^/?kullanici-bilgileri(?:/)?$ dmxConnect/api/mobil/KullaniciBilgileri/kullanici_bilgileri.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^/?kullanici-mobil-giris(?:/)?$ dmxConnect/api/mobil/KullaniciBilgileri/kullanici_giris.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^/?kullanici-kayit(?:/)?$ dmxConnect/api/mobil/KullaniciBilgileri/kullanici_kayit.php [QSA,NC,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/?kullanici-bilgileri-guncelle(?:/)?$ dmxConnect/api/mobil/KullaniciBilgileri/kullanici_bilgileri_guncelle.php [QSA,NC,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^/?monitor(?:/)?$ ekran.html [QSA,NC,L]
 RewriteCond %{REQUEST_FILENAME} !-f

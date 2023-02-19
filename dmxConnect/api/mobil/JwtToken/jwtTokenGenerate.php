@@ -16,6 +16,12 @@ $app->define(<<<'JSON'
         "type": "text",
         "name": "password"
       }
+    ],
+    "$_SERVER": [
+      {
+        "type": "text",
+        "name": "HTTP_MAPPS_AUTHORIZATION"
+      }
     ]
   },
   "exec": {
@@ -107,12 +113,32 @@ $app->define(<<<'JSON'
                     }
                   },
                   "operation": "="
+                },
+                {
+                  "id": "oda_kullanicilar.ok_durum",
+                  "field": "oda_kullanicilar.ok_durum",
+                  "type": "double",
+                  "operator": "equal",
+                  "value": 1,
+                  "data": {
+                    "table": "oda_kullanicilar",
+                    "column": "ok_durum",
+                    "type": "number",
+                    "columnObj": {
+                      "type": "integer",
+                      "default": "1",
+                      "primary": false,
+                      "nullable": false,
+                      "name": "ok_durum"
+                    }
+                  },
+                  "operation": "="
                 }
               ],
               "conditional": null,
               "valid": true
             },
-            "query": "SELECT ok_telefon, ok_sifre, ok_id\nFROM oda_kullanicilar\nWHERE ok_telefon = :P1 /* {{$_POST.phone}} */ AND ok_sifre = :P2 /* {{$_POST.password.sha256('netglobal')}} */"
+            "query": "SELECT ok_telefon, ok_sifre, ok_id\nFROM oda_kullanicilar\nWHERE ok_telefon = :P1 /* {{$_POST.phone}} */ AND ok_sifre = :P2 /* {{$_POST.password.sha256('netglobal')}} */ AND ok_durum = 1"
           }
         },
         "meta": [
@@ -130,6 +156,16 @@ $app->define(<<<'JSON'
           }
         ],
         "outputType": "object"
+      },
+      {
+        "name": "uuid",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{UUID}}"
+        },
+        "meta": [],
+        "outputType": "text"
       },
       {
         "name": "",
@@ -173,11 +209,23 @@ $app->define(<<<'JSON'
                         "type": "number",
                         "value": "1",
                         "condition": "0 Pasif 1 Aktif"
+                      },
+                      {
+                        "table": "oda_kullanicilar",
+                        "column": "ok_uuid",
+                        "type": "text",
+                        "value": "{{uuid}}"
+                      },
+                      {
+                        "table": "oda_kullanicilar",
+                        "column": "ok_olusturulma",
+                        "type": "datetime",
+                        "value": "{{TIMESTAMP}}"
                       }
                     ],
                     "table": "oda_kullanicilar",
                     "returning": "ok_id",
-                    "query": "INSERT INTO oda_kullanicilar\n(ok_telefon, ok_sifre, ok_tip, ok_durum) VALUES (:P1 /* {{$_POST.phone}} */, :P2 /* {{$_POST.password.sha256('netglobal')}} */, '1', '1')",
+                    "query": "INSERT INTO oda_kullanicilar\n(ok_telefon, ok_sifre, ok_tip, ok_durum, ok_uuid, ok_olusturulma) VALUES (:P1 /* {{$_POST.phone}} */, :P2 /* {{$_POST.password.sha256('netglobal')}} */, '1', '1', :P3 /* {{uuid}} */, :P4 /* {{TIMESTAMP}} */)",
                     "params": [
                       {
                         "name": ":P1",
@@ -189,6 +237,18 @@ $app->define(<<<'JSON'
                         "name": ":P2",
                         "type": "expression",
                         "value": "{{$_POST.password.sha256('netglobal')}}",
+                        "test": ""
+                      },
+                      {
+                        "name": ":P3",
+                        "type": "expression",
+                        "value": "{{uuid}}",
+                        "test": ""
+                      },
+                      {
+                        "name": ":P4",
+                        "type": "expression",
+                        "value": "{{TIMESTAMP}}",
                         "test": ""
                       }
                     ]
@@ -220,11 +280,13 @@ $app->define(<<<'JSON'
                         "options": {
                           "alg": "HS256",
                           "iss": "TurkmobilYazilimAS",
-                          "expiresIn": 60000,
+                          "expiresIn": 15552000,
                           "key": "netglobal",
                           "jti": "{{UUID}}",
                           "claims": {
-                            "phone": "{{$_POST.phone}}"
+                            "phone": "{{$_POST.phone}}",
+                            "uuid": "{{uuid}}",
+                            "userid": "{{query.ok_id}}"
                           },
                           "sub": "{{insert.identity}}",
                           "aud": "mobile"
@@ -252,11 +314,17 @@ $app->define(<<<'JSON'
                                 "column": "token",
                                 "type": "text",
                                 "value": "{{jwt}}"
+                              },
+                              {
+                                "table": "tokens",
+                                "column": "created_at",
+                                "type": "datetime",
+                                "value": "{{TIMESTAMP}}"
                               }
                             ],
                             "table": "tokens",
                             "returning": "id",
-                            "query": "INSERT INTO tokens\n(user_id, token) VALUES (:P1 /* {{insert.identity}} */, :P2 /* {{jwt}} */)",
+                            "query": "INSERT INTO tokens\n(user_id, token, created_at) VALUES (:P1 /* {{insert.identity}} */, :P2 /* {{jwt}} */, :P3 /* {{TIMESTAMP}} */)",
                             "params": [
                               {
                                 "name": ":P1",
@@ -268,6 +336,12 @@ $app->define(<<<'JSON'
                                 "name": ":P2",
                                 "type": "expression",
                                 "value": "{{jwt}}",
+                                "test": ""
+                              },
+                              {
+                                "name": ":P3",
+                                "type": "expression",
+                                "value": "{{TIMESTAMP}}",
                                 "test": ""
                               }
                             ]

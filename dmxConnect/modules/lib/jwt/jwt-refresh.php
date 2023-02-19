@@ -17,7 +17,8 @@ $exports = <<<'JSON'
       "options": {
         "token": "{{$_PARAM.token}}"
       },
-      "outputType": "text"
+      "outputType": "text",
+      "output": true
     }
   }
 }

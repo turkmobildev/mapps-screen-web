@@ -678,6 +678,24 @@
           "schema": "mappstv",
           "collation": "utf8_general_ci",
           "system_versioned": false
+        },
+        "columns": {
+          "katId": {
+            "db": {
+              "type": "increments",
+              "primary": true,
+              "nullable": false
+            }
+          },
+          "kat": {
+            "db": {
+              "type": "string",
+              "default": "",
+              "maxLength": 255,
+              "primary": false,
+              "nullable": true
+            }
+          }
         }
       },
       "oda_kullanicilar": {
